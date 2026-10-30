@@ -58,6 +58,9 @@ export const SITE = {
    */
   formEndpoint: '',
 
+  /** Google Search Console HTML etiketi doğrulama kodu (herkese açık bir değerdir, gizli değildir). */
+  googleSiteVerification: 'YyjkGmQf95FPIJkjaKM_eQuYqNjgBs8eOAqEDNtwwng',
+
   /** Varsayılan sosyal paylaşım görseli (public klasöründen). */
   ogImage: '/og/nova-gayrimenkul-paylasim.jpg',
 };

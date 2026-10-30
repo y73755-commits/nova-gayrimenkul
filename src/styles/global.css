@@ -164,6 +164,8 @@ ul, ol { padding-left: 1.2em; }
 @supports (backdrop-filter: blur(8px)) {
   .site-header.is-solid, body.page-light .site-header { background: rgba(245, 241, 232, 0.9); backdrop-filter: blur(10px); }
 }
+/* backdrop-filter, sabit konumlu mobil menünün başlığa hapsolmasına yol açar: menü açıkken kapatılır */
+.site-header.is-open, body.page-light .site-header.is-open { backdrop-filter: none; background: var(--paper); }
 .hdr { height: 100%; display: flex; align-items: center; gap: 2rem; }
 .brand { display: block; flex: none; line-height: 0; }
 .brand img { height: 46px; width: auto; }
@@ -606,4 +608,10 @@ body.cc-open .wa-float { bottom: 112px; }
 @media (prefers-reduced-motion: no-preference) {
   .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
   .js .reveal.is-in { opacity: 1; transform: none; }
+}
+
+/* mobil menüdeki eylem düğmeleri genel menü bağlantı stilinden etkilenmesin */
+.nav .nav-extra .btn {
+  background: var(--b-bg); color: var(--b-fg); border: 1px solid var(--b-bd); justify-content: center;
+  font-family: var(--sans); font-size: 1rem; font-weight: 500; padding: 0.75rem 1.6rem; text-decoration: none;
 }

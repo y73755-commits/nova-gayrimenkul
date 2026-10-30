@@ -1,6 +1,6 @@
 ---
 title: Plaza ve ofis seçiminde kullanım ihtiyaçları
-description: Ofis ararken metrekareden önce netleştirilmesi gereken kullanım ihtiyaçları — ekip yapısı, toplantı ve ziyaretçi akışı, ulaşım, bina hizmetleri ve sözleşme koşulları.
+description: "Ofis ararken metrekareden önce netleştirilmesi gerekenler: ekip yapısı, toplantı ve ziyaretçi akışı, ulaşım, bina hizmetleri ve sözleşme koşulları."
 image: ofis-lobi
 imageAlt: Mermer zeminli, ahşap duvarlı premium ofis lobisi konsepti
 date: 2026-10-30

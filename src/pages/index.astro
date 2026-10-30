@@ -1,0 +1,136 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroPicture from '../components/HeroPicture.astro';
+import PrefSelector from '../components/PrefSelector.astro';
+import Spaces from '../components/Spaces.astro';
+import Services from '../components/Services.astro';
+import Process from '../components/Process.astro';
+import Guides from '../components/Guides.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Img from '../components/Img.astro';
+import { SSS } from '../data/content.mjs';
+import { orgSchema, websiteSchema, faqSchema } from '../data/schema.mjs';
+import monogram from '../assets/brand/monogram-light.svg?url';
+---
+<Base
+  title="Nova Gayrimenkul | Lüks konut ve ticari gayrimenkul danışmanlığı"
+  description="Villa, daire, rezidans, plaza, ofis ve home ofis için alım, satış ve kiralama danışmanlığı. Kurucu Broker Yusuf Sezmiş ile görüşme planlayın."
+  path="/"
+  waTopic="gayrimenkul danışmanlığı"
+  jsonLd={[orgSchema(), websiteSchema(), faqSchema(SSS)]}
+>
+  <!-- A. Açılış -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__media">
+      <HeroPicture desktop="hero-villa-masaustu" mobile="hero-villa-mobil" alt="Gün batımında havuzu ve geniş cam cepheleriyle denize bakan modern villa konsepti" />
+    </div>
+    <div class="wrap hero__inner">
+      <h1 id="hero-title"><span>Seçkin Yaşam Alanları.</span> <span>Doğru Gayrimenkul Kararları.</span></h1>
+      <p class="hero__lead">Nova Gayrimenkul ile konut ve ticari gayrimenkul ihtiyaçlarınıza uygun seçenekleri birlikte değerlendirin.</p>
+      <div class="hero__actions">
+        <a class="btn" href="/iletisim/#gorusme">Görüşme Planlayın</a>
+        <a class="btn btn--ghost" href="/mulkumu-degerlendir/">Mülkümü Değerlendir</a>
+      </div>
+    </div>
+    <p class="hero__note">Görsel, mimari konsept ve yaşam alanı sunumu amacıyla hazırlanmıştır.</p>
+  </section>
+
+  <!-- B. Tercih seçimi -->
+  <div class="wrap prefs-anchor">
+    <PrefSelector id="tercihler" />
+  </div>
+
+  <!-- C. Yaşam alanları -->
+  <section class="section" aria-labelledby="alanlar-title">
+    <div class="wrap">
+      <div class="sh sh--split">
+        <h2 id="alanlar-title">Yaşam ve çalışma alanları</h2>
+        <p>Her mülk türünün kendine özgü soruları var. Danışmanlığımızı bu farklılıklara göre kuruyoruz.</p>
+      </div>
+      <Spaces />
+    </div>
+  </section>
+
+  <!-- D. Hizmetler -->
+  <section class="section dark" aria-labelledby="hizmet-title">
+    <div class="wrap">
+      <div class="sh sh--split">
+        <h2 id="hizmet-title">Danışmanlık hizmetlerimiz</h2>
+        <p>Alım, satış ve kiralama süreçlerinde ihtiyacı netleştirmekten görüşmelerin takibine kadar yanınızdayız.</p>
+      </div>
+      <Services />
+      <p style="margin-top:2rem"><a class="link" href="/hizmetler/" style="color:var(--gold-soft)">Hizmetlerin ayrıntıları</a></p>
+    </div>
+  </section>
+
+  <!-- E. Mülk sahipleri -->
+  <section class="section" aria-labelledby="sahip-title">
+    <div class="wrap split">
+      <figure class="split__media reveal" style="margin:0">
+        <Img name="bahceli-mustakil" alt="Bahçeli, geniş cam cepheli lüks müstakil konut konsepti" sizes="(max-width: 860px) 100vw, 50vw" />
+      </figure>
+      <div class="split__text">
+        <div class="sh" style="margin-bottom:1.5rem"><h2 id="sahip-title">Mülkünüz İçin Doğru Stratejiyi Birlikte Belirleyelim.</h2></div>
+        <p class="lead">Satış veya kiralama kararından önce mülkünüzü konum, durum ve hedeflerinizle birlikte değerlendiririz.</p>
+        <ul class="checks">
+          <li>Gerçekçi fiyat ve zamanlama beklentisi</li>
+          <li>Hazırlık, fotoğraf ve sunum önerileri</li>
+          <li>Yetkilendirme, yayın ve görüşme takibi</li>
+        </ul>
+        <a class="btn btn--ink" href="/mulkumu-degerlendir/">Mülkümü Değerlendir</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- F. Yusuf Sezmiş -->
+  <section class="section dark" aria-labelledby="kurucu-title">
+    <div class="wrap founder">
+      <div class="founder__mark reveal">
+        <Img name="malzeme-detay" alt="Mermer, oluklu meşe ve bronz detaylarla sıcak ışıklı iç mekân dokusu" sizes="(max-width: 860px) 100vw, 40vw" />
+        <img class="founder__mono" src={monogram} alt="" width="76" height="76" loading="lazy" />
+      </div>
+      <div>
+        <h2 class="founder__name" id="kurucu-title">Yusuf Sezmiş</h2>
+        <p class="founder__title">Kurucu Broker</p>
+        <p class="lead">Gayrimenkul kararları çoğu zaman bir ailenin ya da bir şirketin önümüzdeki yıllarını şekillendirir. Bu yüzden önce dinlemeyi, sonra seçenekleri açık ve anlaşılır biçimde birlikte değerlendirmeyi önemsiyoruz.</p>
+        <p class="muted">Nova Gayrimenkul’de her görüşme, ihtiyacın netleştirilmesiyle başlar. Süreç boyunca gelişmeleri düzenli olarak paylaşır, kararı her zaman size bırakırız.</p>
+        <a class="link" href="/yusuf-sezmis/" style="color:var(--gold-soft)">Yusuf Sezmiş’in çalışma yaklaşımı</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- G. Çalışma süreci -->
+  <section class="section" aria-labelledby="surec-title">
+    <div class="wrap">
+      <div class="sh sh--split">
+        <h2 id="surec-title">Nasıl çalışıyoruz?</h2>
+        <p>Dört adımlık sade bir süreç: ne zaman, neyin konuşulacağını baştan bilirsiniz.</p>
+      </div>
+      <Process />
+    </div>
+  </section>
+
+  <!-- H. Bilgi Merkezi -->
+  <section class="section alt" aria-labelledby="rehber-title">
+    <div class="wrap">
+      <div class="sh sh--split">
+        <h2 id="rehber-title">Bilgi merkezi</h2>
+        <p>Karar vermeden önce okumak isteyenler için hazırladığımız rehberlerden seçkiler.</p>
+      </div>
+      <Guides limit={3} />
+      <p style="margin-top:2.2rem"><a class="link" href="/bilgi-merkezi/">Tüm rehberler</a></p>
+    </div>
+  </section>
+
+  <!-- I. SSS -->
+  <section class="section" aria-labelledby="sss-title">
+    <div class="wrap grid-2">
+      <div class="sh" style="align-self:start"><h2 id="sss-title">Sık sorulan sorular</h2><p>Aklınıza takılan başka bir soru varsa bize doğrudan yazabilirsiniz.</p></div>
+      <Faq />
+    </div>
+  </section>
+
+  <!-- J. Son çağrı -->
+  <CtaBand />
+</Base>

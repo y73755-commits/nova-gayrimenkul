@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Guides from '../../components/Guides.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { GUIDES } from '../../data/guides';
+import { breadcrumbSchema } from '../../data/schema.mjs';
+---
+<Base
+  title="Bilgi Merkezi"
+  description="Lüks konut seçimi, villa yaşamı, ofis seçimi ve mülkü satışa hazırlama üzerine Nova Gayrimenkul’ün hazırladığı özgün rehberler."
+  path="/bilgi-merkezi/"
+  waTopic="gayrimenkul danışmanlığı"
+  light
+  jsonLd={[breadcrumbSchema([{ name: 'Bilgi Merkezi', path: '/bilgi-merkezi/' }])]}
+>
+  <PageHero title="Bilgi merkezi" lead="Karar vermeden önce okumak isteyenler için sade, uygulanabilir rehberler." crumbs={[{ label: 'Bilgi Merkezi' }]} />
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap"><Guides limit={GUIDES.length} /></div>
+  </section>
+  <CtaBand title="Sorunuzu doğrudan sorun." text="Rehberlerde aradığınızı bulamadıysanız, kısa bir görüşmede durumunuza özel konuşalım." />
+</Base>

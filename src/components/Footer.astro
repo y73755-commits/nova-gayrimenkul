@@ -1,0 +1,51 @@
+---
+import { SITE } from '../config/site.mjs';
+import { waUrl, waMessage } from '../config/site.mjs';
+import logoLight from '../assets/brand/logo-yatay-light.svg?url';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <img src={logoLight} alt="Nova Gayrimenkul" width="232" height="72" loading="lazy" />
+        <p>Konut ve ticari gayrimenkulde alım, satış ve kiralama danışmanlığı. Kurucu Broker: {SITE.founder}.</p>
+      </div>
+      <div class="ft-contact">
+        <h2>İletişim</h2>
+        <address>{SITE.address.full}</address>
+        <ul>
+          <li><a href={SITE.phoneHref} data-loc="footer">{SITE.phoneDisplay}</a></li>
+          <li><a href={waUrl(waMessage())} data-wa data-loc="footer" target="_blank" rel="noopener">WhatsApp ile yazın</a></li>
+          <li><a href={SITE.directionsUrl} data-directions data-loc="footer" target="_blank" rel="noopener">Yol tarifi al</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Danışmanlık</h2>
+        <ul>
+          <li><a href="/hizmetler/">Hizmetler</a></li>
+          <li><a href="/yasam-alanlari/">Yaşam alanları</a></li>
+          <li><a href="/bolgeye-gore-talep/">Bölgeye göre talep</a></li>
+          <li><a href="/mulkumu-degerlendir/">Mülkümü değerlendir</a></li>
+          <li><a href="/bilgi-merkezi/">Bilgi merkezi</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Kurumsal</h2>
+        <ul>
+          <li><a href="/hakkimizda/">Hakkımızda</a></li>
+          <li><a href="/yusuf-sezmis/">Yusuf Sezmiş</a></li>
+          <li><a href="/iletisim/">İletişim</a></li>
+          <li><a href="/kvkk-aydinlatma-metni/">KVKK aydınlatma metni</a></li>
+          <li><a href="/gizlilik-politikasi/">Gizlilik politikası</a></li>
+          <li><a href="/cerez-politikasi/">Çerez politikası</a></li>
+          <li><button type="button" class="linkish" data-cc-open>Çerez tercihleri</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <p>© {year} {SITE.name}. Tüm hakları saklıdır.</p>
+      <p>Sitedeki mimari görseller konsept ve yaşam alanı sunumu amacıyla hazırlanmıştır.</p>
+    </div>
+  </div>
+</footer>

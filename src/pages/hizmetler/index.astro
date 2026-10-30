@@ -1,0 +1,65 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Services from '../../components/Services.astro';
+import Process from '../../components/Process.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Img from '../../components/Img.astro';
+import { breadcrumbSchema } from '../../data/schema.mjs';
+---
+<Base
+  title="Hizmetler"
+  description="Alım, satış, kiralama ve ticari gayrimenkul danışmanlığı ile mülkün pazarlama süreci. Nova Gayrimenkul’ün hizmetlerini ve çalışma biçimini inceleyin."
+  path="/hizmetler/"
+  waTopic="gayrimenkul danışmanlığı hizmetleri"
+  jsonLd={[breadcrumbSchema([{ name: 'Hizmetler', path: '/hizmetler/' }])]}
+>
+  <PageHero
+    title="Gayrimenkulde ihtiyaca göre kurulan danışmanlık"
+    lead="Konut ve ticari gayrimenkulde alım, satış ve kiralama süreçlerini sizinle birlikte, açık ve takip edilebilir adımlarla yürütüyoruz."
+    image="ofis-lobi"
+    alt="Mermer zeminli, ahşap duvarlı premium ofis lobisi konsepti"
+    crumbs={[{ label: 'Hizmetler' }]}
+  />
+  <section class="section">
+    <div class="wrap">
+      <div class="sh sh--split">
+        <h2>Beş temel hizmet</h2>
+        <p>Her hizmet, ilk görüşmede ihtiyacınızı netleştirmekle başlar. Hangi adımın sizin için gerekli olduğuna birlikte karar veririz.</p>
+      </div>
+      <Services light />
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap split">
+      <div class="split__text">
+        <div class="sh" style="margin-bottom:1.4rem"><h2>Konut danışmanlığı</h2></div>
+        <p class="lead">Villa, daire ve rezidans seçiminde konum, plan, yapı durumu ve yaşam düzeninizi birlikte değerlendiririz.</p>
+        <p>Alım veya kiralama yapacaksanız ihtiyacınızı ve bütçe çerçevenizi netleştirir, uygun seçenekleri aynı ölçütlerle karşılaştırırız. Satış veya kiralama yapacaksanız mülkünüzü doğru konumlandırmak için hazırlık ve sunum planını birlikte kurarız.</p>
+        <a class="link" href="/yasam-alanlari/">Yaşam alanlarına göre yaklaşımımız</a>
+      </div>
+      <figure class="split__media reveal" style="margin:0"><Img name="penthouse-salon" alt="Akşam şehir manzaralı penthouse salonu konsepti" sizes="(max-width: 860px) 100vw, 50vw" /></figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split split--rev">
+      <div class="split__text">
+        <div class="sh" style="margin-bottom:1.4rem"><h2>Ticari gayrimenkul danışmanlığı</h2></div>
+        <p class="lead">Plaza, ofis ve home ofis ihtiyaçlarında süreci metrekareyle değil, kullanım planıyla başlatırız.</p>
+        <p>Ekip büyüklüğü, toplantı ve ziyaretçi akışı, ulaşım, bina hizmetleri ve sözleşme koşulları gibi başlıkları baştan ele alır; değerlendirmeyi bu çerçevede sürdürürüz.</p>
+        <a class="link" href="/iletisim/?konu=ticari#gorusme">Ticari gayrimenkul için görüşme talebi</a>
+      </div>
+      <figure class="split__media reveal" style="margin:0"><Img name="plaza-aksam" alt="Akşam ışığında çağdaş plaza dış cephesi konsepti" sizes="(max-width: 860px) 100vw, 50vw" /></figure>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="sh"><h2>Çalışma süreci</h2></div>
+      <Process />
+    </div>
+  </section>
+  <CtaBand title="Hangi hizmete ihtiyacınız olduğundan emin değil misiniz?" text="Kısa bir görüşmede durumunuzu dinleyelim; doğru adımı birlikte belirleyelim." />
+</Base>

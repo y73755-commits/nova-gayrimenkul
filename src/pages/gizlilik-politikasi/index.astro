@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { SITE } from '../../config/site.mjs';
+const formsLive = Boolean(SITE.formEndpoint);
+---
+<Base title="Gizlilik Politikası" description="Nova Gayrimenkul web sitesinde hangi bilgilerin, hangi amaçlarla ve nasıl işlendiğine dair gizlilik politikası." path="/gizlilik-politikasi/" light>
+  <PageHero title="Gizlilik politikası" lead="Bu sitede hangi bilgilerin neden işlendiğini sade bir dille anlatıyoruz." crumbs={[{ label: 'Gizlilik Politikası' }]} />
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap--narrow prose">
+      <h2>Kısaca</h2>
+      <ul>
+        <li>Siteyi gezmek için kişisel bilgi vermeniz gerekmez.</li>
+        <li>Form doldurursanız, yalnızca talebinize dönüş yapmak için gereken bilgileri isteriz.</li>
+        <li>Analiz ve reklam ölçümü yalnızca izin verdiğinizde çalışır.</li>
+        <li>Adınız, telefonunuz ve mesajınız ölçüm araçlarına veya sayfa adreslerine eklenmez.</li>
+      </ul>
+
+      <h2>Formlar</h2>
+      {formsLive ? (
+        <p>Görüşme ve mülk değerlendirme formları, bilgilerinizi şifreli bağlantı (HTTPS) üzerinden, yalnızca yetkili kişinin erişebildiği bir Google E-Tablolar dosyasına kaydeder. Kayıt başarılı olduğunda ekranda bir talep numarası görürsünüz; kayıt gerçekleşmezse bunu açıkça bildiririz.</p>
+      ) : (
+        <p>Formlar şu anda bilgilerinizi bir sunucuya kaydetmez. “WhatsApp ile gönder” düğmesi, bilgilerinizi kendi cihazınızda hazır bir WhatsApp mesajı olarak açar; mesaj ancak siz WhatsApp’ta gönderdiğinizde bize ulaşır.</p>
+      )}
+      <p>Formlarda isteğe bağlı bir pazarlama izni kutusu bulunur. Bu kutuyu işaretlemeden de talebinizi iletebilirsiniz.</p>
+
+      <h2>Tarayıcınızda tutulan bilgiler</h2>
+      <p>Seçtiğiniz işlem, mülk türü, talep konumu ve bütçe aralığı; çerez tercihiniz ve aynı oturumda gönderdiğiniz talebin tekrar gönderilmesini önleyen kayıt yalnızca kendi tarayıcınızda saklanır. Bu bilgileri tarayıcı ayarlarınızdan veya formdaki “Seçimleri temizle” bağlantısıyla silebilirsiniz. Ayrıntılar <a href="/cerez-politikasi/">çerez politikasında</a>.</p>
+
+      <h2>WhatsApp ve telefon</h2>
+      <p>WhatsApp bağlantıları, sayfaya göre hazırlanmış bir mesajı WhatsApp’ta açar. Mesajı gönderip göndermemek size kalmıştır. Bir WhatsApp bağlantısına veya telefon numarasına tıklamanız, izin verdiyseniz yalnızca “tıklama” olarak ölçülür; bu, mesajın gönderildiği veya aramanın gerçekleştiği anlamına gelmez.</p>
+
+      <h2>Analiz ve reklam ölçümü</h2>
+      <p>İzin vermeniz halinde Google Etiket Yöneticisi, Google Analytics ve Google Ads aracılığıyla hangi sayfaların ziyaret edildiğini ve reklamlarımızın hangi talepleri getirdiğini ölçebiliriz. İzin vermediğinizde bu araçlar yüklenmez. Tercihinizi istediğiniz zaman sayfanın altındaki “Çerez tercihleri” bağlantısından değiştirebilirsiniz.</p>
+
+      <h2>Harici bağlantılar</h2>
+      <p>“Yol Tarifi Al” bağlantısı Google Haritalar’ı yeni sekmede açar. Sitede harita veya video gibi üçüncü taraf gömülü içerik bulunmaz.</p>
+
+      <h2>Haklarınız ve iletişim</h2>
+      <p>Kişisel verilerinize ilişkin haklarınız ve başvuru yöntemi için <a href="/kvkk-aydinlatma-metni/">KVKK aydınlatma metnini</a> inceleyebilirsiniz. Sorularınız için: <a href={SITE.phoneHref}>{SITE.phoneDisplay}</a>, {SITE.address.full}.</p>
+      <p class="sources">Son güncelleme: 30 Ekim 2026.</p>
+    </div>
+  </section>
+</Base>

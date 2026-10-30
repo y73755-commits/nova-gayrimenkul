@@ -1,0 +1,36 @@
+---
+/** Reklam açılış sayfası şablonu: tek ana mesaj, ilgili görsel, kısa hizmet anlatımı, tek ana başvuru hedefi. noindex. */
+import Base from '../layouts/Base.astro';
+import Img from './Img.astro';
+import LeadForm from './LeadForm.astro';
+import { SITE, waUrl, waMessage } from '../config/site.mjs';
+interface Props {
+  path: string; title: string; description: string; h1: string; lead: string; image: string; alt: string;
+  points: string[]; formType: 'gorusme' | 'degerlendirme'; defaultKonu?: string; waTopic: string; formTitle: string; note?: string;
+}
+const p = Astro.props;
+---
+<Base title={p.title} description={p.description} path={p.path} noindex minimal waTopic={p.waTopic}>
+  <section class="phero" style="min-height:clamp(460px,62vh,680px)">
+    <div class="phero__media"><Img name={p.image} alt={p.alt} priority sizes="100vw" widths={[768, 1080, 1440, 1600]} /></div>
+    <div class="wrap phero__inner">
+      <h1>{p.h1}</h1>
+      <p>{p.lead}</p>
+      <p style="margin-top:1.6rem"><a class="btn" href="#basvuru">{p.formType === 'gorusme' ? 'Görüşme Planlayın' : 'Mülkümü Değerlendir'}</a></p>
+    </div>
+  </section>
+  <section class="section" id="basvuru" aria-labelledby="lp-form-t">
+    <div class="wrap grid-2" style="align-items:start">
+      <div>
+        <div class="sh" style="margin-bottom:1.2rem"><h2 id="lp-form-t" style="font-size:var(--step-3)">{p.formTitle}</h2></div>
+        <ul class="lp-points">{p.points.map((x) => <li>{x}</li>)}</ul>
+        <p class="muted" style="margin-top:2rem;font-size:.97rem">
+          Formu doldurmak yerine hemen konuşmak isterseniz: <a href={SITE.phoneHref} data-loc="lp">{SITE.phoneDisplay}</a> ya da
+          <a href={waUrl(waMessage(p.waTopic))} data-wa data-loc="lp" target="_blank" rel="noopener">WhatsApp</a>.
+        </p>
+        <p class="concept-note">{p.note || 'Görseller mimari konsept ve yaşam alanı sunumu amacıyla hazırlanmıştır.'}</p>
+      </div>
+      <div class="form-card"><LeadForm type={p.formType} id="lp-form" defaultKonu={p.defaultKonu} /></div>
+    </div>
+  </section>
+</Base>

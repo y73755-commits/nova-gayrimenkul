@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { SITE } from '../../config/site.mjs';
+const formsLive = Boolean(SITE.formEndpoint);
+---
+<Base title="KVKK Aydınlatma Metni" description="Nova Gayrimenkul web sitesindeki formlar ve iletişim kanalları aracılığıyla işlenen kişisel verilere ilişkin 6698 sayılı KVKK kapsamındaki aydınlatma metni." path="/kvkk-aydinlatma-metni/" light>
+  <PageHero title="KVKK aydınlatma metni" lead="6698 sayılı Kişisel Verilerin Korunması Kanunu’nun 10. maddesi kapsamında bilgilendirme." crumbs={[{ label: 'KVKK Aydınlatma Metni' }]} />
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap--narrow prose">
+      <h2>Veri sorumlusu</h2>
+      <p>{SITE.name} (Kurucu Broker: {SITE.founder}), {SITE.address.full}. Telefon: <a href={SITE.phoneHref}>{SITE.phoneDisplay}</a>.</p>
+
+      <h2>Hangi verileri işliyoruz?</h2>
+      <ul>
+        <li><strong>Kimlik ve iletişim:</strong> ad soyad, telefon numarası.</li>
+        <li><strong>Talep bilgileri:</strong> ilgilenilen konu, işlem türü (alım, satış, kiralama), mülk türü, talep konumu (il/ilçe), yaklaşık metrekare, isteğe bağlı bütçe aralığı, mesaj veya ek bilgi, tercih edilen iletişim kanalı.</li>
+        <li><strong>İzin tercihi:</strong> pazarlama amaçlı iletişime izin verip vermediğiniz.</li>
+        <li><strong>İşlem bilgileri:</strong> formun gönderildiği sayfa ve zaman, varsa kampanya kaynağı parametreleri (utm) ve yalnızca reklam çerezlerine izin verdiyseniz reklam tıklama kimliği.</li>
+      </ul>
+      <p>İlk aşamada tapu, kimlik veya benzeri belge talep etmiyoruz. Formlara özel nitelikli kişisel veri yazmamanızı rica ederiz.</p>
+
+      <h2>Verileri hangi amaçlarla işliyoruz?</h2>
+      <ul>
+        <li>Görüşme ve mülk değerlendirme talebinize dönüş yapmak, randevu planlamak,</li>
+        <li>Talebinize uygun danışmanlık sürecini yürütmek ve takip etmek,</li>
+        <li>İzin vermeniz halinde yeni seçenekler ve bilgilendirmeler hakkında sizinle iletişime geçmek,</li>
+        <li>Formların kötüye kullanımını (spam, tekrar gönderim) önlemek ve hizmet güvenliğini sağlamak.</li>
+      </ul>
+
+      <h2>Hukuki sebepler</h2>
+      <p>Talebinize dönüş yapılması ve danışmanlık sürecinin yürütülmesi, KVKK m. 5/2-c (bir sözleşmenin kurulması veya ifasıyla doğrudan ilgili olması) ve m. 5/2-f (temel hak ve özgürlüklerinize zarar vermemek kaydıyla meşru menfaat) kapsamında işlenir. Pazarlama amaçlı iletişim ile analiz ve reklam çerezleri yalnızca açık rızanız / onayınız ile kullanılır; bu izinleri vermemeniz talebinizin alınmasını etkilemez.</p>
+
+      <h2>Toplama yöntemi ve aktarım</h2>
+      {formsLive ? (
+        <p>Veriler, sitedeki formlar aracılığıyla elektronik ortamda toplanır ve yalnızca yetkili kişinin erişebildiği bir Google E-Tablolar dosyasında, Google Apps Script hizmeti kullanılarak saklanır. Google’ın sunucuları yurt dışında bulunabileceğinden bu hizmetin kullanımı, KVKK m. 9’da öngörülen yurt dışına aktarım kurallarına tabidir.</p>
+      ) : (
+        <p>Formlar şu anda verilerinizi bir sunucuya kaydetmez: “WhatsApp ile gönder” düğmesine bastığınızda bilgileriniz, kendi cihazınızda hazır bir WhatsApp mesajı olarak açılır ve ancak siz gönderdiğinizde bize ulaşır. WhatsApp hizmeti WhatsApp/Meta tarafından sağlanır ve sunucuları yurt dışında bulunabilir.</p>
+      )}
+      <p>Telefonla aradığınızda veya WhatsApp’tan yazdığınızda paylaştığınız bilgiler de aynı amaçlarla işlenir. Site, GitHub Pages altyapısında barındırılır; barındırma hizmeti, sayfaların size iletilmesi için teknik bağlantı verilerini (ör. IP adresi) işleyebilir. Analiz ve reklam ölçümü (Google) yalnızca çerez tercihlerinizde izin verdiğinizde çalışır. Verileriniz bunlar dışında üçüncü kişilerle paylaşılmaz; kanunen yetkili kurumların talebi saklıdır.</p>
+
+      <h2>Saklama süresi</h2>
+      <p>Veriler, talebinizin sonuçlanması için gerekli süre ve ilgili mevzuatta öngörülen süreler boyunca saklanır; bu sürelerin sonunda silinir, yok edilir veya anonim hale getirilir. Pazarlama izninizi geri aldığınızda bu amaçla işleme durdurulur.</p>
+
+      <h2>Haklarınız</h2>
+      <p>KVKK m. 11 uyarınca; verilerinizin işlenip işlenmediğini öğrenme, bilgi talep etme, amacına uygun kullanılıp kullanılmadığını öğrenme, aktarıldığı üçüncü kişileri bilme, eksik veya yanlış işlenmişse düzeltilmesini, silinmesini veya yok edilmesini isteme, bu işlemlerin aktarılan kişilere bildirilmesini isteme, otomatik sistemlerle analiz sonucu aleyhinize bir sonuç çıkmasına itiraz etme ve zarara uğramanız halinde giderilmesini talep etme haklarına sahipsiniz.</p>
+      <p>Başvurularınızı, kimliğinizi doğrulayan bilgilerle birlikte yazılı olarak {SITE.address.full} adresine iletebilirsiniz.</p>
+      <p class="sources">Son güncelleme: 30 Ekim 2026.</p>
+    </div>
+  </section>
+</Base>

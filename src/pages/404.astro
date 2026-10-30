@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Sayfa bulunamadı" description="Aradığınız sayfa bulunamadı." path="/404/" noindex light>
+  <section class="section" style="padding-top:calc(var(--header-h) + 4rem)">
+    <div class="wrap--narrow">
+      <div class="sh"><h1 style="font-size:var(--step-4)">Bu sayfa bulunamadı.</h1><p>Adres değişmiş ya da yanlış yazılmış olabilir. Aşağıdaki bağlantılardan devam edebilirsiniz.</p></div>
+      <div style="display:flex;flex-wrap:wrap;gap:.7rem">
+        <a class="btn btn--ink" href="/">Ana sayfaya dön</a>
+        <a class="btn btn--line" href="/iletisim/#gorusme">Görüşme Planlayın</a>
+        <a class="btn btn--line" href="/bilgi-merkezi/">Bilgi merkezi</a>
+      </div>
+    </div>
+  </section>
+</Base>

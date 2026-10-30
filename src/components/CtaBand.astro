@@ -1,0 +1,29 @@
+---
+import Img from './Img.astro';
+import { SITE, waUrl, waMessage } from '../config/site.mjs';
+import { ICONS } from '../data/icons.mjs';
+interface Props { title?: string; text?: string; image?: string; alt?: string; waTopic?: string; }
+const {
+  title = 'Gayrimenkul kararınızı birlikte netleştirelim.',
+  text = 'Kısa bir görüşmeyle ihtiyacınızı dinleyelim ve sonraki adımı birlikte belirleyelim.',
+  image = 'villa-havuz',
+  alt = 'Gün batımında sonsuzluk havuzu olan modern villa konsepti',
+  waTopic,
+} = Astro.props;
+---
+<section class="cta" aria-labelledby="cta-title">
+  <div class="cta__media"><Img name={image} alt={alt} sizes="100vw" widths={[768, 1080, 1600]} /></div>
+  <div class="wrap cta__inner">
+    <h2 id="cta-title">{title}</h2>
+    <p>{text}</p>
+    <div class="cta__actions">
+      <a class="btn" href="/iletisim/#gorusme">Görüşme Planlayın</a>
+      <a class="btn btn--ghost" href={waUrl(waMessage(waTopic))} data-wa data-wa-topic={waTopic} data-loc="cta" target="_blank" rel="noopener"><Fragment set:html={ICONS.whatsapp} />WhatsApp</a>
+    </div>
+    <div class="contact-lines">
+      <a href={SITE.phoneHref} data-loc="cta">{SITE.phoneDisplay}</a>
+      <span>{SITE.address.full}</span>
+      <a href={SITE.directionsUrl} data-directions data-loc="cta" target="_blank" rel="noopener">Yol Tarifi Al</a>
+    </div>
+  </div>
+</section>

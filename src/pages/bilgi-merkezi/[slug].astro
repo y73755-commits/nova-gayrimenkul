@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Guides from '../../components/Guides.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { GUIDES, fmtDate } from '../../data/guides';
+import { breadcrumbSchema, articleSchema } from '../../data/schema.mjs';
+import { getImage } from 'astro:assets';
+import { absoluteUrl } from '../../config/site.mjs';
+
+export function getStaticPaths() {
+  return GUIDES.map((g) => ({ params: { slug: g.slug }, props: { g } }));
+}
+const { g } = Astro.props;
+const { Content } = g;
+const imgs = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/*.{png,jpg}', { eager: true });
+const key = Object.keys(imgs).find((k) => k.includes(`/${g.image}.`));
+const og = key ? await getImage({ src: imgs[key].default, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 76 }) : null;
+const ogPath = og ? og.src : undefined;
+---
+<Base
+  title={g.title}
+  description={g.description}
+  path={`/bilgi-merkezi/${g.slug}/`}
+  ogImage={ogPath}
+  ogType="article"
+  waTopic="gayrimenkul danışmanlığı"
+  jsonLd={[articleSchema(g, ogPath ? absoluteUrl(ogPath) : undefined), breadcrumbSchema([{ name: 'Bilgi Merkezi', path: '/bilgi-merkezi/' }, { name: g.title, path: `/bilgi-merkezi/${g.slug}/` }])]}
+>
+  <PageHero title={g.title} image={g.image} alt={g.imageAlt} crumbs={[{ label: 'Bilgi Merkezi', href: '/bilgi-merkezi/' }, { label: 'Rehber' }]}>
+    <p class="article-meta">{fmtDate(g.date)} — {g.readMinutes} dakikalık okuma — Nova Gayrimenkul</p>
+  </PageHero>
+  <article class="section">
+    <div class="wrap--narrow prose">
+      <p class="lead">{g.description}</p>
+      <Content />
+      <p style="margin-top:2.5rem"><a class="btn btn--ink" href="/iletisim/#gorusme">Bu konuyu birlikte konuşalım</a></p>
+    </div>
+  </article>
+  <section class="section alt">
+    <div class="wrap">
+      <div class="sh"><h2>Diğer rehberler</h2></div>
+      <Guides limit={3} exclude={g.slug} />
+    </div>
+  </section>
+  <CtaBand />
+</Base>

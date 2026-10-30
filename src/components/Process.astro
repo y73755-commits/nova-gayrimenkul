@@ -1,0 +1,8 @@
+---
+import { SUREC } from '../data/content.mjs';
+---
+<ol class="process">
+  {SUREC.map((s) => (
+    <li><h3>{s.baslik}</h3><p>{s.metin}</p></li>
+  ))}
+</ol>

@@ -1,0 +1,42 @@
+---
+/** Çerez tercih sistemi: kabul / reddet / tercihler. Seçim localStorage'da tutulur, Consent Mode v2 ile senkron. */
+---
+<section class="cc" id="cc" hidden aria-labelledby="cc-title">
+  <div class="cc__text">
+  <h2 id="cc-title">Çerez tercihleri</h2>
+  <p>
+    Sitenin çalışması için gerekli olanlar dışında, ziyaret istatistikleri ve reklam ölçümü için çerezleri yalnızca izninizle kullanırız.
+    Ayrıntılar <a href="/cerez-politikasi/">çerez politikasında</a>.
+  </p>
+  </div>
+  <div class="cc__actions">
+    <button class="btn btn--ink" type="button" data-cc="accept">Tümünü kabul et</button>
+    <button class="btn btn--line" type="button" data-cc="reject">Reddet</button>
+    <button class="btn btn--line" type="button" data-cc-open>Tercihler</button>
+  </div>
+</section>
+<dialog class="ccd" id="ccd" aria-labelledby="ccd-title">
+  <form method="dialog" class="ccd__in">
+    <h2 id="ccd-title">Çerez tercihlerinizi seçin</h2>
+    <p class="muted" style="margin:0">Tercihinizi istediğiniz zaman sayfanın altındaki “Çerez tercihleri” bağlantısından değiştirebilirsiniz.</p>
+    <div class="opt">
+      <h3 id="cc-nec">Zorunlu</h3>
+      <label class="switch"><input type="checkbox" checked disabled aria-labelledby="cc-nec" /><span></span></label>
+      <p>Çerez tercihinizin ve seçtiğiniz talep bilgilerinin bu tarayıcıda hatırlanması için gerekir. Kapatılamaz.</p>
+    </div>
+    <div class="opt">
+      <h3 id="cc-an">Analiz</h3>
+      <label class="switch"><input type="checkbox" name="analytics" aria-labelledby="cc-an" /><span></span></label>
+      <p>Hangi sayfaların ziyaret edildiğini anonim istatistiklerle görmemizi sağlar (Google Analytics).</p>
+    </div>
+    <div class="opt">
+      <h3 id="cc-ad">Reklam ve dönüşüm ölçümü</h3>
+      <label class="switch"><input type="checkbox" name="ads" aria-labelledby="cc-ad" /><span></span></label>
+      <p>Reklamlarımızın hangi talepleri getirdiğini ölçmemizi sağlar (Google Ads).</p>
+    </div>
+    <div class="ccd__actions">
+      <button class="btn btn--line" value="reject" type="submit" data-cc="reject">Tümünü reddet</button>
+      <button class="btn btn--ink" value="save" type="submit" data-cc="save">Seçimi kaydet</button>
+    </div>
+  </form>
+</dialog>

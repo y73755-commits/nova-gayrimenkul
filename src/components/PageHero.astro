@@ -1,0 +1,24 @@
+---
+import Img from './Img.astro';
+interface Crumb { label: string; href?: string; }
+interface Props { title: string; lead?: string; image?: string; alt?: string; crumbs?: Crumb[]; }
+const { title, lead, image, alt = '', crumbs = [] } = Astro.props;
+---
+<section class={`phero ${image ? '' : 'phero--plain'}`}>
+  {image && (
+    <div class="phero__media"><Img name={image} alt={alt} priority sizes="100vw" widths={[768, 1080, 1440, 1600]} /></div>
+  )}
+  <div class="wrap phero__inner">
+    {crumbs.length > 0 && (
+      <nav class="crumbs" aria-label="Sayfa konumu">
+        <ol>
+          <li><a href="/">Ana sayfa</a></li>
+          {crumbs.map((c) => <li>{c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</li>)}
+        </ol>
+      </nav>
+    )}
+    <h1>{title}</h1>
+    {lead && <p>{lead}</p>}
+    <slot />
+  </div>
+</section>

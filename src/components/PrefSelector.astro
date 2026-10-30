@@ -1,0 +1,62 @@
+---
+/**
+ * Tercih seçim alanı: İşlem → Mülk türü → Konum (il/ilçe) → Bütçe (isteğe bağlı).
+ * Seçimler bu tarayıcıda saklanır, görüşme/değerlendirme formuna ve WhatsApp mesajına aktarılır.
+ * İlan sonucu göstermez.
+ */
+import { ISLEMLER, MULK_TURLERI, ILLER, ISTANBUL_ILCELERI, YAKALAR } from '../data/talep.mjs';
+interface Props { id?: string; heading?: string; intro?: string; headingLevel?: 'h2' | 'h3'; }
+const { id = 'tercihler', heading = 'Talebinizi birkaç seçimle anlatın', intro = 'Seçimleriniz görüşme formuna ve WhatsApp mesajınıza otomatik eklenir.', headingLevel = 'h2' } = Astro.props;
+const H = headingLevel;
+---
+<form class="prefs" id={id} data-prefs novalidate aria-labelledby={`${id}-title`}>
+  <div class="prefs__head">
+    <H id={`${id}-title`}>{heading}</H>
+    <p>{intro}</p>
+  </div>
+  <div class="prefs__grid">
+    <fieldset>
+      <legend class="step-label"><b>1</b> İşlem</legend>
+      <div class="seg">
+        {ISLEMLER.map((o) => (
+          <label><input type="radio" name="islem" value={o.id} /><span>{o.label}</span></label>
+        ))}
+      </div>
+    </fieldset>
+    <div class="field">
+      <label class="step-label" for={`${id}-tur`}><b>2</b> Mülk türü</label>
+      <select class="control" id={`${id}-tur`} name="tur">
+        <option value="">Seçin</option>
+        {MULK_TURLERI.map((o) => <option value={o.id}>{o.label}</option>)}
+      </select>
+    </div>
+    <div class="field">
+      <span class="step-label" id={`${id}-konum-l`}><b>3</b> Talep konumu</span>
+      <div class="loc-pair" role="group" aria-labelledby={`${id}-konum-l`}>
+        <select class="control" name="il" aria-label="İl">
+          <option value="">İl</option>
+          {ILLER.map((o) => <option value={o.id}>{o.label}</option>)}
+        </select>
+        <select class="control" name="ilce" aria-label="İlçe" disabled>
+          <option value="">İlçe</option>
+          {YAKALAR.map((y) => (
+            <optgroup label={y}>
+              {ISTANBUL_ILCELERI.filter((d) => d.yaka === y).map((d) => <option value={d.id}>{d.ad}</option>)}
+            </optgroup>
+          ))}
+        </select>
+        <input class="control" name="ilText" type="text" maxlength="60" placeholder="İl ve ilçe" aria-label="İl ve ilçe" hidden />
+      </div>
+    </div>
+    <div class="field">
+      <label class="step-label" for={`${id}-butce`}><b>4</b> Bütçe <small>isteğe bağlı</small></label>
+      <select class="control" id={`${id}-butce`} name="butce" disabled>
+        <option value="">Önce işlemi seçin</option>
+      </select>
+    </div>
+    <div class="prefs__submit">
+      <button class="btn btn--ink btn--block" type="submit">Bu Tercihlerle Bilgi Al</button>
+    </div>
+  </div>
+  <p class="prefs__summary" aria-live="polite" data-prefs-summary></p>
+</form>

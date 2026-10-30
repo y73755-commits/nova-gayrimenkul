@@ -1,0 +1,17 @@
+---
+import Img from './Img.astro';
+import { GUIDES } from '../data/guides';
+interface Props { limit?: number; exclude?: string; }
+const { limit = 3, exclude } = Astro.props;
+const list = GUIDES.filter((g) => g.slug !== exclude).slice(0, limit);
+---
+<div class="guides">
+  {list.map((g) => (
+    <article class="guide reveal">
+      <div class="guide__img"><Img name={g.image} alt={g.imageAlt} sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 33vw" widths={[480, 768, 1080]} /></div>
+      <h3><a href={`/bilgi-merkezi/${g.slug}/`}>{g.title}</a></h3>
+      <p>{g.description}</p>
+      <span class="meta">{g.readMinutes} dakikalık okuma</span>
+    </article>
+  ))}
+</div>

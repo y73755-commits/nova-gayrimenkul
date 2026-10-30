@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Img from '../../components/Img.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { ALANLAR } from '../../data/content.mjs';
+import { waUrl, waMessage } from '../../config/site.mjs';
+import { breadcrumbSchema } from '../../data/schema.mjs';
+---
+<Base
+  title="Yaşam Alanları"
+  description="Villa, daire ve rezidans, plaza ve ofis, home ofis: her mülk türünde neyi birlikte değerlendirdiğimizi ve danışmanlık yaklaşımımızı inceleyin."
+  path="/yasam-alanlari/"
+  waTopic="konut ve ofis seçenekleri"
+  jsonLd={[breadcrumbSchema([{ name: 'Yaşam Alanları', path: '/yasam-alanlari/' }])]}
+>
+  <PageHero
+    title="Yaşam alanları"
+    lead="Villa, rezidans, ofis ya da home ofis… Her alanın kendine özgü soruları var. Aşağıda hangi başlıkları birlikte değerlendirdiğimizi bulabilirsiniz."
+    image="villa-havuz"
+    alt="Gün batımında sonsuzluk havuzu ve modern villa konsepti"
+    crumbs={[{ label: 'Yaşam Alanları' }]}
+  />
+  {ALANLAR.map((a, i) => (
+    <section class={`section ${i % 2 ? 'alt' : ''}`} id={a.id} aria-labelledby={`${a.id}-t`}>
+      <div class={`wrap split ${i % 2 ? 'split--rev' : ''}`}>
+        <div class="split__media reveal">
+          <Img name={a.gorsel} alt={a.alt} sizes="(max-width: 860px) 100vw, 50vw" />
+        </div>
+        <div class="split__text">
+          <div class="sh" style="margin-bottom:1.3rem"><h2 id={`${a.id}-t`}>{a.baslik}</h2></div>
+          <p class="lead">{a.kisa}</p>
+          <p>{a.uzun}</p>
+          <ul class="checks">{a.maddeler.map((m) => <li>{m}</li>)}</ul>
+          <div style="display:flex;flex-wrap:wrap;gap:.7rem">
+            <a class="btn btn--ink" href={`/iletisim/?konu=${a.id}#gorusme`}>{a.baslik} için görüşme planlayın</a>
+            <a class="btn btn--line" href={waUrl(waMessage(a.waKonu))} data-wa data-wa-topic={a.waKonu} data-loc={`alan_${a.id}`} target="_blank" rel="noopener">WhatsApp ile sorun</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+  <div class="wrap"><p class="concept-note" style="margin:0 0 3rem">Görseller mimari konsept ve yaşam alanı sunumu amacıyla hazırlanmıştır; belirli bir adresteki mülkü temsil etmez.</p></div>
+  <CtaBand />
+</Base>

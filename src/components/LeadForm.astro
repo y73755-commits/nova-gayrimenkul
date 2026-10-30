@@ -1,0 +1,130 @@
+---
+/**
+ * İki form: "gorusme" (kısa görüşme formu) ve "degerlendirme" (mülk değerlendirme formu).
+ * formEndpoint ayarlıysa talep sunucuya (Google Apps Script) kaydedilir; başarı mesajı yalnızca
+ * sunucu kaydı onayladığında gösterilir. Ayarlı değilse form talebi WhatsApp ile iletir ve bunu açıkça söyler.
+ */
+import { SITE } from '../config/site.mjs';
+import { KONULAR, MULK_TURLERI, ILLER, ISTANBUL_ILCELERI, YAKALAR } from '../data/talep.mjs';
+interface Props { type: 'gorusme' | 'degerlendirme'; id?: string; defaultKonu?: string; defaultTur?: string; defaultAmac?: string; }
+const { type, id = type === 'gorusme' ? 'gorusme-formu' : 'degerlendirme-formu', defaultKonu = '', defaultTur = '', defaultAmac = '' } = Astro.props;
+const live = Boolean(SITE.formEndpoint);
+const submitLabel = live
+  ? type === 'gorusme' ? 'Görüşme talebini gönder' : 'Değerlendirme talebini gönder'
+  : 'WhatsApp ile gönder';
+const f = (n: string) => `${id}-${n}`;
+---
+<form class="lead-form" id={id} data-form={type} data-live={live ? '1' : '0'} novalidate>
+  {!live && (
+    <p class="form-status form-status--info" data-mode-note>
+      Bu form talebinizi WhatsApp üzerinden iletir: “WhatsApp ile gönder”e bastığınızda bilgileriniz hazır bir mesaj olarak açılır, göndermeyi WhatsApp’ta siz tamamlarsınız. İsterseniz <a href={SITE.phoneHref} data-loc={`form_${type}`}>{SITE.phoneDisplay}</a> numarasını da arayabilirsiniz.
+    </p>
+  )}
+
+  <div class="prefchip" data-prefchip hidden>
+    <span data-prefchip-text></span>
+    <button type="button" data-prefs-clear>Seçimleri temizle</button>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label for={f('ad')}>Ad soyad <span class="req" aria-hidden="true">*</span></label>
+      <input class="control" id={f('ad')} name="adSoyad" type="text" autocomplete="name" required maxlength="80" aria-describedby={f('ad-e')} />
+      <span class="error" id={f('ad-e')} data-error-for="adSoyad"></span>
+    </div>
+    <div class="field">
+      <label for={f('tel')}>Telefon <span class="req" aria-hidden="true">*</span></label>
+      <input class="control" id={f('tel')} name="telefon" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" placeholder="05xx xxx xx xx" aria-describedby={f('tel-e')} />
+      <span class="error" id={f('tel-e')} data-error-for="telefon"></span>
+    </div>
+  </div>
+
+  {type === 'gorusme' ? (
+    <>
+      <div class="field">
+        <label for={f('konu')}>İlgilendiğiniz konu <span class="req" aria-hidden="true">*</span></label>
+        <select class="control" id={f('konu')} name="konu" required aria-describedby={f('konu-e')} data-default={defaultKonu}>
+          <option value="">Seçin</option>
+          {KONULAR.map((k) => <option value={k.id} selected={k.id === defaultKonu}>{k.label}</option>)}
+        </select>
+        <span class="error" id={f('konu-e')} data-error-for="konu"></span>
+      </div>
+      <div class="field">
+        <label for={f('mesaj')}>Mesajınız <span class="hint">(isteğe bağlı)</span></label>
+        <textarea class="control" id={f('mesaj')} name="mesaj" rows="4" maxlength="1200" placeholder="Görüşmek istediğiniz zaman aralığını veya kısa notunuzu yazabilirsiniz."></textarea>
+      </div>
+      <fieldset class="field" style="border:0;padding:0;margin:0">
+        <legend class="label" style="font-size:.9rem;font-weight:500;margin-bottom:.4rem">Size nasıl ulaşalım?</legend>
+        <div class="radios">
+          <label><input type="radio" name="kanal" value="telefon" checked /> Telefonla arayın</label>
+          <label><input type="radio" name="kanal" value="whatsapp" /> WhatsApp’tan yazın</label>
+        </div>
+      </fieldset>
+    </>
+  ) : (
+    <>
+      <fieldset class="field" style="border:0;padding:0;margin:0">
+        <legend class="label" style="font-size:.9rem;font-weight:500;margin-bottom:.4rem">Amacınız <span class="req" aria-hidden="true">*</span></legend>
+        <div class="radios" aria-describedby={f('amac-e')}>
+          <label><input type="radio" name="amac" value="sat" checked={defaultAmac !== 'kiraya-ver'} /> Satmak istiyorum</label>
+          <label><input type="radio" name="amac" value="kiraya-ver" checked={defaultAmac === 'kiraya-ver'} /> Kiraya vermek istiyorum</label>
+        </div>
+        <span class="error" id={f('amac-e')} data-error-for="amac"></span>
+      </fieldset>
+      <div class="row">
+        <div class="field">
+          <label for={f('tur')}>Mülk türü <span class="req" aria-hidden="true">*</span></label>
+          <select class="control" id={f('tur')} name="tur" required aria-describedby={f('tur-e')}>
+            <option value="">Seçin</option>
+            {MULK_TURLERI.map((o) => <option value={o.id} selected={o.id === defaultTur}>{o.label}</option>)}
+          </select>
+          <span class="error" id={f('tur-e')} data-error-for="tur"></span>
+        </div>
+        <div class="field">
+          <label for={f('m2')}>Yaklaşık metrekare <span class="req" aria-hidden="true">*</span></label>
+          <input class="control" id={f('m2')} name="metrekare" type="number" inputmode="numeric" min="10" max="100000" step="1" required placeholder="Örn. 180" aria-describedby={f('m2-e')} />
+          <span class="error" id={f('m2-e')} data-error-for="metrekare"></span>
+        </div>
+      </div>
+      <div class="field">
+        <span class="label" id={f('konum-l')} style="font-size:.9rem;font-weight:500">Mülkün konumu <span class="req" aria-hidden="true">*</span></span>
+        <div class="loc-pair" role="group" aria-labelledby={f('konum-l')} data-locgroup>
+          <select class="control" name="il" aria-label="İl" required aria-describedby={f('konum-e')}>
+            <option value="">İl</option>
+            {ILLER.map((o) => <option value={o.id}>{o.label}</option>)}
+          </select>
+          <select class="control" name="ilce" aria-label="İlçe" disabled>
+            <option value="">İlçe</option>
+            {YAKALAR.map((y) => (
+              <optgroup label={y}>
+                {ISTANBUL_ILCELERI.filter((d) => d.yaka === y).map((d) => <option value={d.id}>{d.ad}</option>)}
+              </optgroup>
+            ))}
+          </select>
+          <input class="control" name="ilText" type="text" maxlength="60" placeholder="İl ve ilçe" aria-label="İl ve ilçe" hidden />
+        </div>
+        <span class="error" id={f('konum-e')} data-error-for="konum"></span>
+      </div>
+      <div class="field">
+        <label for={f('ek')}>Ek bilgiler <span class="hint">(isteğe bağlı)</span></label>
+        <textarea class="control" id={f('ek')} name="ekBilgi" rows="3" maxlength="1200" placeholder="Oda sayısı, kat, kullanım durumu (boş / kiracılı) gibi bilgiler."></textarea>
+      </div>
+    </>
+  )}
+
+  <label class="choice">
+    <input type="checkbox" name="pazarlamaIzni" value="1" />
+    <span>Nova Gayrimenkul’ün bana yeni seçenekler ve bilgilendirmeler hakkında telefon veya WhatsApp ile ulaşmasına izin veriyorum. <span class="muted">(İsteğe bağlı, talebiniz için gerekli değildir.)</span></span>
+  </label>
+  <p class="notice">
+    Paylaştığınız bilgiler yalnızca talebinize dönüş yapmak için kullanılır. Ayrıntılar: <a href="/kvkk-aydinlatma-metni/">KVKK aydınlatma metni</a>.
+    İlk aşamada tapu veya kimlik belgesi istemiyoruz.
+  </p>
+
+  <div class="hp" aria-hidden="true">
+    <label>Bu alanı boş bırakın <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <div class="form-status" data-status role="alert" hidden></div>
+  <button class="btn btn--block" type="submit" data-submit>{submitLabel}</button>
+</form>

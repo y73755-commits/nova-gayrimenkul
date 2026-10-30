@@ -1,0 +1,17 @@
+---
+import { HIZMETLER } from '../data/content.mjs';
+interface Props { light?: boolean; withLists?: boolean; }
+const { light = false, withLists = true } = Astro.props;
+---
+<div class={`services ${light ? 'services--light' : ''}`}>
+  {HIZMETLER.map((s) => (
+    <article class="svc" id={s.id}>
+      <h3>{s.baslik}</h3>
+      <p>{s.ozet}</p>
+      {withLists && <ul>{s.maddeler.map((m) => <li>{m}</li>)}</ul>}
+      <a class="link" href={s.id === 'satis' || s.id === 'pazarlama' ? '/mulkumu-degerlendir/' : `/iletisim/?konu=${s.konu}#gorusme`}>
+        {s.id === 'satis' || s.id === 'pazarlama' ? 'Mülkünüzü değerlendirelim' : 'Bu konuda görüşelim'}
+      </a>
+    </article>
+  ))}
+</div>

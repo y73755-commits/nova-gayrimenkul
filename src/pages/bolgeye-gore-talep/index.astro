@@ -1,0 +1,60 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import PrefSelector from '../../components/PrefSelector.astro';
+import { ISTANBUL_ILCELERI, YAKALAR } from '../../data/talep.mjs';
+import { breadcrumbSchema } from '../../data/schema.mjs';
+---
+<Base
+  title="Bölgeye Göre Talep"
+  description="Talep konumunuzu İstanbul ilçeleri arasından seçin; işlem ve mülk türüyle birlikte görüşme formuna ve WhatsApp mesajınıza otomatik eklensin."
+  path="/bolgeye-gore-talep/"
+  waTopic="bölgeye göre gayrimenkul talebi"
+  light
+  jsonLd={[breadcrumbSchema([{ name: 'Bölgeye Göre Talep', path: '/bolgeye-gore-talep/' }])]}
+>
+  <PageHero
+    title="Bölgeye göre talep"
+    lead="Aradığınız ya da sahip olduğunuz mülkün konumunu seçin. Seçiminiz, işlem ve mülk türüyle birlikte görüşme formuna ve WhatsApp mesajınıza eklenir."
+    crumbs={[{ label: 'Bölgeye Göre Talep' }]}
+  />
+  <section class="section--tight" style="padding-top:0">
+    <div class="wrap">
+      <PrefSelector id="bolge-tercih" heading="Talep bilgileriniz" intro="İlçeyi aşağıdaki listeden de seçebilirsiniz." />
+    </div>
+  </section>
+  <section class="section" aria-labelledby="ilce-t">
+    <div class="wrap">
+      <div class="sh sh--split">
+        <h2 id="ilce-t">İstanbul ilçeleri</h2>
+        <p>Bir ilçeye dokunduğunuzda talep konumu olarak seçilir. Bu liste talebinizi tanımlamak içindir; ilan sonucu göstermez.</p>
+      </div>
+      <div class="regions">
+        {YAKALAR.map((y) => (
+          <div>
+            <h3>{y}</h3>
+            <ul class="chips">
+              {ISTANBUL_ILCELERI.filter((d) => d.yaka === y).map((d) => (
+                <li><button type="button" data-ilce-chip={d.id} aria-pressed="false">{d.ad}</button></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <p class="concept-note">İlçe listesi İstanbul’un 39 ilçesinden oluşur. Bir ilçenin listede yer alması, o bölgede hizmet verildiği ya da portföy bulunduğu anlamına gelmez; talebinizi aldıktan sonra size durumu açıkça bildiririz. İstanbul dışındaki talepler için “Başka bir il” seçeneğini kullanabilirsiniz.</p>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap grid-2">
+      <div class="sh" style="margin:0"><h2>Seçiminiz nasıl kullanılır?</h2></div>
+      <div>
+        <ul class="checks" style="margin-top:0">
+          <li>Seçimleriniz yalnızca bu tarayıcıda saklanır; sayfaya geri döndüğünüzde kaybolmaz.</li>
+          <li>Görüşme ve değerlendirme formlarında özet olarak görünür, isterseniz temizleyebilirsiniz.</li>
+          <li>WhatsApp mesajınıza işlem, mülk türü ve talep konumu olarak eklenir.</li>
+        </ul>
+        <a class="btn btn--ink" href="/iletisim/#gorusme">Görüşme Planlayın</a>
+      </div>
+    </div>
+  </section>
+</Base>

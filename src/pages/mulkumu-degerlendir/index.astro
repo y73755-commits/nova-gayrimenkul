@@ -1,0 +1,64 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import Img from '../../components/Img.astro';
+import Faq from '../../components/Faq.astro';
+import { breadcrumbSchema } from '../../data/schema.mjs';
+import { SITE } from '../../config/site.mjs';
+const sss = [
+  { s: 'Değerlendirme için hangi bilgiler gerekiyor?', c: 'Mülkün türü, konumu, yaklaşık metrekaresi ve satış ya da kiralama amacınız başlangıç için yeterlidir. İlk aşamada tapu veya kimlik belgesi istemiyoruz.' },
+  { s: 'Değerlendirme sonrasında ne olur?', c: 'Formu gönderdikten sonra sizi arar ya da WhatsApp’tan yazarız. Mülkü yerinde görmek için uygun bir zamanı birlikte belirler, ardından fiyat stratejisi ve hazırlık önerilerimizi paylaşırız.' },
+  { s: 'Değerlendirme yaptırmak beni bir sözleşmeye bağlar mı?', c: 'Hayır. Değerlendirme görüşmesi, mülkünüz için izlenebilecek yolu konuşmak içindir. Herhangi bir yetkilendirme veya sözleşme ancak sizin kararınızla ve ayrıca yapılır.' },
+];
+---
+<Base
+  title="Mülkümü Değerlendir"
+  description="Mülkünüzü satmak veya kiraya vermek mi istiyorsunuz? Kısa değerlendirme formunu doldurun; fiyat stratejisi, hazırlık ve pazarlama planını birlikte belirleyelim."
+  path="/mulkumu-degerlendir/"
+  waTopic="mülk değerlendirmesi"
+  jsonLd={[breadcrumbSchema([{ name: 'Mülkümü Değerlendir', path: '/mulkumu-degerlendir/' }])]}
+>
+  <PageHero
+    title="Mülkünüz İçin Doğru Stratejiyi Birlikte Belirleyelim."
+    lead="Satış veya kiralama öncesinde mülkünüzü konum, durum ve hedeflerinizle birlikte değerlendirelim."
+    image="bahceli-mustakil"
+    alt="Bahçeli, geniş cam cepheli lüks müstakil konut konsepti"
+    crumbs={[{ label: 'Hizmetler', href: '/hizmetler/' }, { label: 'Mülkümü Değerlendir' }]}
+  />
+  <section class="section" id="degerlendirme" aria-labelledby="form-t">
+    <div class="wrap grid-2" style="align-items:start">
+      <div>
+        <div class="sh" style="margin-bottom:1.4rem"><h2 id="form-t">Mülk değerlendirme formu</h2></div>
+        <p class="lead">Birkaç temel bilgi yeterli. Formu gönderdikten sonra size dönüş yapar, mülkü görmek için uygun bir zaman belirleriz.</p>
+        <ul class="checks">
+          <li>Konum, kat, cephe ve durum değerlendirmesi</li>
+          <li>Gerçekçi fiyat ve zamanlama beklentisi</li>
+          <li>Hazırlık, fotoğraf ve sunum önerileri</li>
+          <li>EİDS yetkilendirmesi ve yayın süreci hakkında bilgilendirme</li>
+        </ul>
+        <p class="muted" style="font-size:.95rem">Formu doldurmak yerine konuşmak isterseniz: <a href={SITE.phoneHref} data-loc="degerlendirme">{SITE.phoneDisplay}</a></p>
+      </div>
+      <div class="form-card">
+        <LeadForm type="degerlendirme" />
+      </div>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap split">
+      <figure class="split__media reveal" style="margin:0"><Img name="malzeme-detay" alt="Mermer tezgâh ve oluklu meşe ile iç mekân detayı" sizes="(max-width: 860px) 100vw, 50vw" /></figure>
+      <div class="split__text">
+        <div class="sh" style="margin-bottom:1.3rem"><h2>Hazırlık neden önemli?</h2></div>
+        <p class="lead">İyi hazırlanmış bir mülk, doğru kişilere daha hızlı ulaşır ve görüşmeleri daha verimli hale getirir.</p>
+        <p>Belgelerin önceden toparlanması, küçük onarımların tamamlanması ve mekânın sade, aydınlık sunulması ilk izlenimi doğrudan etkiler. Bu adımları mülkünüze özel olarak birlikte planlarız.</p>
+        <a class="link" href="/bilgi-merkezi/mulku-satisa-veya-kiralamaya-hazirlama/">Hazırlık rehberini okuyun</a>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap grid-2">
+      <div class="sh" style="align-self:start"><h2>Değerlendirme hakkında</h2></div>
+      <Faq items={sss} />
+    </div>
+  </section>
+</Base>

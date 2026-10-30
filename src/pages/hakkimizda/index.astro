@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Img from '../../components/Img.astro';
+import Process from '../../components/Process.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { SITE } from '../../config/site.mjs';
+import { orgSchema, breadcrumbSchema } from '../../data/schema.mjs';
+---
+<Base
+  title="Hakkımızda"
+  description="Nova Gayrimenkul; konut ve ticari gayrimenkulde alım, satış ve kiralama danışmanlığı veren, Kurucu Broker Yusuf Sezmiş tarafından yönetilen bir gayrimenkul markasıdır."
+  path="/hakkimizda/"
+  waTopic="gayrimenkul danışmanlığı"
+  jsonLd={[orgSchema(), breadcrumbSchema([{ name: 'Hakkımızda', path: '/hakkimizda/' }])]}
+>
+  <PageHero
+    title="Nova Gayrimenkul"
+    lead="Konut ve ticari gayrimenkulde, kararı netleştiren sade ve açık bir danışmanlık anlayışı."
+    image="rezidans-ic-mekan"
+    alt="Gün ışığı alan zarif rezidans iç mekânı konsepti"
+    crumbs={[{ label: 'Kurumsal' }, { label: 'Hakkımızda' }]}
+  />
+  <section class="section">
+    <div class="wrap grid-2">
+      <div class="sh" style="margin:0"><h2>Yaklaşımımız</h2></div>
+      <div>
+        <p class="lead">Gayrimenkul, çoğu insanın hayatında verdiği en büyük kararlardan biridir. Bu kararın doğru bilgiyle, acele etmeden ve açık bir iletişimle verilmesi gerektiğine inanıyoruz.</p>
+        <p>Nova Gayrimenkul; villa, daire, rezidans, plaza, ofis ve home ofis konularında alım, satış ve kiralama danışmanlığı verir. Mülkünü satmak veya kiraya vermek isteyen sahiplerle değerlendirme, hazırlık ve pazarlama sürecini birlikte yürütür.</p>
+        <p>Her görüşmeye ihtiyacı dinleyerek başlarız. Seçenekleri ve riskleri anlaşılır biçimde paylaşır, süreç boyunca gelişmeleri düzenli olarak bildiririz. Son kararı her zaman size bırakırız.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap">
+      <div class="sh"><h2>Bizi tanımlayan ilkeler</h2></div>
+      <div class="services services--light" style="grid-template-columns:repeat(3,1fr)">
+        <article class="svc" style="grid-column:auto"><h3>Önce dinlemek</h3><p>Seçenek sunmadan önce amacınızı, zamanlamanızı ve önceliklerinizi anlamaya çalışırız.</p></article>
+        <article class="svc" style="grid-column:auto"><h3>Açık iletişim</h3><p>Olumlu ve olumsuz yönleri birlikte konuşur, gelişmeleri düzenli olarak paylaşırız.</p></article>
+        <article class="svc" style="grid-column:auto"><h3>Ölçülü vaat</h3><p>Sonucu garanti etmeyiz; doğru hazırlık ve takiple süreci en iyi şekilde yönetmeye odaklanırız.</p></article>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap split">
+      <figure class="split__media reveal" style="margin:0"><Img name="malzeme-detay" alt="Mermer, oluklu meşe ve bronz ile iç mekân malzeme detayı" sizes="(max-width: 860px) 100vw, 50vw" /></figure>
+      <div class="split__text">
+        <div class="sh" style="margin-bottom:1.3rem"><h2>Ofisimiz</h2></div>
+        <p class="lead">{SITE.address.full}</p>
+        <p>Görüşmeler için önceden randevu almanızı öneririz. Telefonla arayabilir, WhatsApp’tan yazabilir ya da görüşme formunu doldurabilirsiniz.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.7rem">
+          <a class="btn btn--ink" href="/iletisim/#gorusme">Görüşme Planlayın</a>
+          <a class="btn btn--line" href={SITE.directionsUrl} data-directions data-loc="hakkimizda" target="_blank" rel="noopener">Yol Tarifi Al</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap"><div class="sh"><h2>Çalışma süreci</h2></div><Process /></div>
+  </section>
+  <CtaBand />
+</Base>

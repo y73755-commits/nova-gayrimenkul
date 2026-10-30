@@ -1,0 +1,13 @@
+---
+import { SSS } from '../data/content.mjs';
+interface Props { items?: { s: string; c: string }[]; }
+const { items = SSS } = Astro.props;
+---
+<div class="faq">
+  {items.map((q) => (
+    <details>
+      <summary>{q.s}</summary>
+      <div class="ans"><p>{q.c}</p></div>
+    </details>
+  ))}
+</div>

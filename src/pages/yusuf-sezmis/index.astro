@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Img from '../../components/Img.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { SITE } from '../../config/site.mjs';
+import { personSchema, breadcrumbSchema } from '../../data/schema.mjs';
+import monogram from '../../assets/brand/monogram-light.svg?url';
+---
+<Base
+  title="Yusuf Sezmiş — Kurucu Broker"
+  description="Nova Gayrimenkul Kurucu Broker’ı Yusuf Sezmiş’in danışmanlık yaklaşımı: önce dinlemek, seçenekleri açıkça değerlendirmek ve süreci düzenli takip etmek."
+  path="/yusuf-sezmis/"
+  waTopic="gayrimenkul danışmanlığı"
+  jsonLd={[personSchema(), breadcrumbSchema([{ name: 'Yusuf Sezmiş', path: '/yusuf-sezmis/' }])]}
+>
+  <PageHero
+    title="Yusuf Sezmiş"
+    lead="Kurucu Broker, Nova Gayrimenkul"
+    image="malzeme-detay"
+    alt="Mermer, oluklu meşe ve sıcak ışık kullanılan iç mekân detayı"
+    crumbs={[{ label: 'Kurumsal' }, { label: 'Yusuf Sezmiş' }]}
+  />
+  <section class="section">
+    <div class="wrap founder" style="align-items:start">
+      <div class="founder__mark" style="aspect-ratio:1;background:var(--ink);display:grid;place-items:center">
+        <img src={monogram} alt="Nova Gayrimenkul N monogramı" width="200" height="200" loading="lazy" style="width:42%;height:auto" />
+      </div>
+      <div class="prose">
+        <h2 style="margin-top:0">Çalışma yaklaşımı</h2>
+        <p>Bir gayrimenkul görüşmesine genellikle bir soruyla gelinir: “Bu mülk bana uygun mu?”, “Mülkümü hangi fiyattan, ne zaman satabilirim?” ya da “Ekibimiz için doğru ofis hangisi?”. Yusuf Sezmiş’in yaklaşımı, bu soruyu acele etmeden, ihtiyacın tüm yönlerini konuşarak yanıtlamaya dayanır.</p>
+        <h3>Önce ihtiyaç, sonra seçenek</h3>
+        <p>Her süreç; amacın, zamanlamanın ve önceliklerin netleştirildiği bir ilk görüşmeyle başlar. Seçenekler bu çerçeveye göre değerlendirilir; uygun olmayan bir seçenek, bütün yönleriyle açıkça konuşulur.</p>
+        <h3>Açık ve düzenli iletişim</h3>
+        <p>Görüşmelerden, gösterimlerden ve gelen geri bildirimlerden sizi düzenli olarak haberdar etmek, sürecin temel bir parçasıdır. Telefonla, WhatsApp’tan ya da yüz yüze; size en uygun iletişim yolunu birlikte belirleriz.</p>
+        <h3>Mülk sahipleri için</h3>
+        <p>Satış veya kiralama sürecinde mülkün doğru değerlendirilmesi, iyi hazırlanması ve doğru anlatılması önceliklidir. Fiyat stratejisi, sunum ve yetkilendirme adımları birlikte planlanır.</p>
+        <p class="muted" style="font-size:.95rem">Yusuf Sezmiş ile görüşmek için {SITE.phoneDisplay} numarasını arayabilir veya aşağıdaki bağlantıdan görüşme planlayabilirsiniz.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.5rem">
+          <a class="btn btn--ink" href="/iletisim/#gorusme">Görüşme Planlayın</a>
+          <a class="btn btn--line" href={SITE.phoneHref} data-loc="kurucu">{SITE.phoneDisplay}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <CtaBand image="ofis-lobi" alt="Premium ofis lobisi konsepti" />
+</Base>

@@ -1,0 +1,33 @@
+---
+/** Ana görsel: masaüstü ve mobil için ayrı kırpımlar (art direction), en yüksek öncelikle yüklenir. */
+import { getImage } from 'astro:assets';
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/*.{png,jpg}', { eager: true });
+interface Props { desktop: string; mobile: string; alt: string; }
+const { desktop, mobile, alt } = Astro.props;
+const pick = (n: string) => {
+  const k = Object.keys(images).find((p) => p.split('/').pop()!.replace(/\.[^.]+$/, '') === n);
+  if (!k) throw new Error(`Görsel bulunamadı: ${n}`);
+  return images[k].default;
+};
+const d = pick(desktop);
+const m = pick(mobile);
+const build = async (img: ImageMetadata, widths: number[], format: 'avif' | 'webp' | 'jpg', quality = 70) => {
+  const ws = widths.filter((w) => w <= img.width);
+  const out = await Promise.all(ws.map((w) => getImage({ src: img, width: w, format, quality })));
+  return out.map((o, i) => `${o.src} ${ws[i]}w`).join(', ');
+};
+const dW = [960, 1440, 1920, 2160];
+const mW = [540, 720, 1080];
+const sets = {
+  mAvif: await build(m, mW, 'avif'), mWebp: await build(m, mW, 'webp'),
+  dAvif: await build(d, dW, 'avif'), dWebp: await build(d, dW, 'webp'),
+};
+const fallback = await getImage({ src: d, width: 1440, format: 'jpg', quality: 72 });
+---
+<picture>
+  <source media="(max-width: 760px)" type="image/avif" srcset={sets.mAvif} sizes="100vw" />
+  <source media="(max-width: 760px)" type="image/webp" srcset={sets.mWebp} sizes="100vw" />
+  <source type="image/avif" srcset={sets.dAvif} sizes="100vw" />
+  <source type="image/webp" srcset={sets.dWebp} sizes="100vw" />
+  <img src={fallback.src} alt={alt} width={d.width} height={d.height} fetchpriority="high" loading="eager" decoding="sync" />
+</picture>

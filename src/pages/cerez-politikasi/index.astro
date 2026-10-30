@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { SITE } from '../../config/site.mjs';
+const gtmOn = Boolean(SITE.gtmId);
+---
+<Base title="Çerez Politikası" description="Nova Gayrimenkul web sitesinde kullanılan zorunlu depolama, analiz ve reklam çerezleri ile tercihlerinizi nasıl değiştirebileceğiniz." path="/cerez-politikasi/" light>
+  <PageHero title="Çerez politikası" lead="Zorunlu olmayan çerezler yalnızca izninizle kullanılır." crumbs={[{ label: 'Çerez Politikası' }]} />
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap--narrow prose">
+      <p><button type="button" class="btn btn--ink" data-cc-open>Çerez tercihlerimi değiştir</button></p>
+      <h2>Zorunlu depolama</h2>
+      <p>Bu bilgiler sitenin istediğiniz şekilde çalışması için tarayıcınızın yerel depolama alanında tutulur ve kapatılamaz. Üçüncü taraflarla paylaşılmaz.</p>
+      <table>
+        <thead><tr><th>Ad</th><th>Amaç</th><th>Süre</th></tr></thead>
+        <tbody>
+          <tr><td>nova.consent.v1</td><td>Çerez tercihinizi hatırlar.</td><td>Siz silene kadar</td></tr>
+          <tr><td>nova.prefs.v1</td><td>Seçtiğiniz işlem, mülk türü, talep konumu ve bütçe aralığını hatırlar.</td><td>Siz silene kadar</td></tr>
+          <tr><td>nova.sent</td><td>Aynı talebin kısa sürede tekrar gönderilmesini önler.</td><td>Oturum sonuna kadar</td></tr>
+          <tr><td>nova.utm</td><td>Siteye hangi kampanyadan geldiğinizi (utm parametreleri) talebinizle ilişkilendirir.</td><td>Oturum sonuna kadar</td></tr>
+          <tr><td>nova.internal</td><td>Yalnızca site yöneticisinin test ziyaretlerini ölçümden hariç tutar.</td><td>Siz silene kadar</td></tr>
+        </tbody>
+      </table>
+      <h2>Analiz çerezleri (izne bağlı)</h2>
+      <p>Google Analytics 4, sayfa ziyaretlerini ve site içi etkileşimleri istatistiksel olarak ölçer. Yalnızca “Analiz” iznini verdiğinizde çalışır.</p>
+      <h2>Reklam ve dönüşüm ölçümü çerezleri (izne bağlı)</h2>
+      <p>Google Ads, reklamlarımızın hangi talepleri getirdiğini ölçmemizi sağlar. Bu izni verdiğinizde, reklamdan gelmişseniz reklam tıklama kimliği (gclid, gbraid, wbraid) oturum boyunca saklanır ve talebinizle ilişkilendirilebilir. İzin vermezseniz bu kimlik saklanmaz.</p>
+      <p>{gtmOn ? 'Analiz ve reklam araçları Google Etiket Yöneticisi üzerinden, Google İzin Modu (Consent Mode v2) ile verdiğiniz izinlere uygun biçimde çalışır.' : 'Analiz ve reklam araçları henüz etkinleştirilmemiştir. Etkinleştirildiğinde Google Etiket Yöneticisi üzerinden, Google İzin Modu (Consent Mode v2) ile ve yalnızca verdiğiniz izinlere uygun biçimde çalışacaktır.'}</p>
+      <h2>Üçüncü taraf içerik</h2>
+      <p>Sitede gömülü harita, video veya sosyal medya içeriği bulunmaz. “Yol Tarifi Al” ve WhatsApp bağlantıları ilgili hizmeti ancak tıkladığınızda yeni sekmede açar.</p>
+      <h2>Tercihlerinizi değiştirme</h2>
+      <p>Tercihinizi istediğiniz zaman bu sayfadaki düğmeden veya sayfanın altındaki “Çerez tercihleri” bağlantısından değiştirebilirsiniz. Tarayıcı ayarlarınızdan site verilerini tamamen silebilirsiniz.</p>
+      <p class="sources">Son güncelleme: 30 Ekim 2026. İletişim: <a href={SITE.phoneHref}>{SITE.phoneDisplay}</a></p>
+    </div>
+  </section>
+</Base>

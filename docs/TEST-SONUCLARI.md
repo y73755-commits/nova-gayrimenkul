@@ -32,6 +32,19 @@ Testler gerçek tarayıcıyla (Chromium, Playwright) masaüstü 1280–1440 px v
 Geçerli kayıt + talep no · ağ tekrarında aynı talep no · kısa sürede tekrar gönderim engeli · gizli alan (spam) · çok hızlı doldurma (bot) · sunucu doğrulaması (ad, telefon, konu) · değerlendirme formunda ilçe/m² doğrulaması · E-Tablo formül enjeksiyonu koruması · kişi başı gönderim sınırı · bozuk JSON.
 Komut: `node backend/test/code.test.mjs`
 
+## Canlı uçtan uca test (31 Ekim 2026, nova-gayrimenkul.com)
+
+| Test | Sonuç |
+|---|---|
+| Görüşme formu (İletişim) → talep no `NV-261031-6R66` ekranda; E-Tabloda satır; bildirim e-postası geldi | ✓ |
+| Mülk değerlendirme formu → talep no `NV-261031-ER3E`; mülk türü, konum (Sarıyer, İstanbul), m² doğru sütunlarda | ✓ |
+| Başarı yalnızca sunucu `ok` + talep no döndürünce gösterildi; `generate_lead` bir kez (+ görüşmede `appointment_request`) | ✓ |
+| Canlı servise geçersiz istek → hata; çok hızlı gönderim → spam kaydı (“Hata kayıtları” sayfası) | ✓ |
+| `/sitemap.xml` ve `/sitemap-index.xml` 200; Search Console okuması başarılı | ✓ |
+| `google-site-verification` meta etiketi canlıda; HTML etiketi doğrulaması başarılı | ✓ |
+
+Testler `?nova_test=1` ile yapıldı (ölçümden hariç). Test satırları “Tamamlandı — Test kaydı, silinebilir” olarak işaretli.
+
 ## Erişilebilirlik (axe-core, WCAG 2 A/AA)
 
 6 sayfa × 2 görünüm (masaüstü, mobil): **0 ihlal**.

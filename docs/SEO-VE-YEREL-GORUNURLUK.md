@@ -15,25 +15,18 @@
 - Derleme sırasında ana sayfanın yanlışlıkla `noindex` kalmadığı otomatik kontrol edilir.
 - İlçe adlarıyla çoğaltılmış (doorway) sayfa üretilmedi.
 
-## Search Console — yapılacak hesap işlemi
+## Search Console — yapıldı (31 Ekim 2026)
 
-Search Console erişimi bu oturumda olmadığı için doğrulama yapılmadı. Önerilen yol (en sağlam yöntem: alan adı mülkü):
+- Mülk: `https://nova-gayrimenkul.com/` (URL öneki). Doğrulama: **HTML dosyası** + **HTML etiketi** (`src/config/site.mjs` → `googleSiteVerification`). Bu dosya ve etiket silinmemeli.
+- Site haritaları: `sitemap-index.xml` başarılı okundu (16 sayfa); `sitemap.xml` (aynı içerik) yeniden gönderildi.
+- Ana sayfa için “Dizine eklenmesini iste” kullanıldı.
+- Takip: birkaç gün sonra “Sayfalar” raporundan eski sitenin artık olmayan adreslerinin 404 olarak düşüp düşmediğine bakın; bu normaldir.
+- İsteğe bağlı: **Alan adı mülkü** (DNS TXT kaydı) Turkticaret paneline giriş gerektirir. Mevcut mülk tüm site için yeterlidir.
 
-1. https://search.google.com/search-console → **Mülk ekle → Alan adı** → `nova-gayrimenkul.com`.
-2. Google'ın verdiği `google-site-verification=...` TXT kaydını Turkticaret → Domain Yönetimi → nova-gayrimenkul.com → **DNS Pro** → Kayıt Oluştur → Tür **TXT**, Ad `@` olarak ekleyin.
-3. Doğrulandıktan sonra **Site haritaları** bölümüne `sitemap-index.xml` yazıp gönderin.
-4. Birkaç gün sonra “Sayfalar” raporundan dizine eklenme durumunu kontrol edin.
+## Google İşletme Profili — durum
 
-İsterseniz bu adımları uygulama içi tarayıcıda sizin yerinize yapabilirim; TXT kaydı eklemek mevcut DNS kayıtlarını (e-posta dahil) etkilemez.
-
-## Google İşletme Profili — yapılacaklar
-
-Profiliniz daha önce **hizmet bölgesi işletmesi (adres gizli)** olarak açılmıştı. Siteyle tutarlılık için:
-
-1. Profilde **Web sitesi** alanına `https://nova-gayrimenkul.com/` ekleyin (isterseniz `?utm_source=google&utm_medium=organic&utm_campaign=gbp` etiketiyle).
-2. Telefonun sitedeki ile aynı olduğundan emin olun: **0501 701 79 08**.
-3. İşletme adı sitede ve profilde aynı yazılmalı: **Nova Gayrimenkul**.
-4. Video doğrulamayı tamamlayın (daha önce kendiniz yapmayı planladığınızı belirtmiştiniz).
-5. Profil gönderilerinde rehber yazılarına bağlantı verebilirsiniz.
+- Ad **Nova Gayrimenkul**, telefon **0501 701 79 08**, web sitesi **https://nova-gayrimenkul.com/** — site ile tutarlı (kontrol edildi).
+- Profil **doğrulanmamış** (“Doğrulama başarısız — başka bir kayıt gönderin”), bu yüzden herkese görünmüyor. Doğrulama videosunu yalnızca işletme sahibi çekebilir: Google Haritalar uygulamasında profil → **Doğrulama yapın**.
+- Doğrulandıktan sonra profil gönderilerinde rehber yazılarına bağlantı verebilirsiniz.
 
 Sıralama veya trafik garantisi verilemez; görünürlük zamanla içerik, tutarlılık ve gerçek kullanıcı etkileşimiyle oluşur.

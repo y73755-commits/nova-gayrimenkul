@@ -25,15 +25,24 @@
 
 Görsel üretim (yapay zekâ ile fotoğraf üretimi) aracı bu ortamda yoktu. Telif riskine girmemek için tüm mimari görseller **Blender (Cycles) ile koddan sıfırdan modellenip render edildi**; dış fotoğraf, doku veya model kullanılmadı. Görseller fotogerçekçi mimari konsept render kalitesindedir, gerçek fotoğraf değildir. Sitede “Görseller mimari konsept ve yaşam alanı sunumu amacıyla hazırlanmıştır.” notu yer alır. İleride profesyonel fotoğraf veya üretim görselleri kullanılmak istenirse `src/assets/images/` içindeki aynı adlı dosyaları değiştirmek yeterlidir.
 
-## Yalnızca dış hesap veya doğrulama nedeniyle bekleyenler
+## Kurulan ve canlıda doğrulanan hizmetler (31 Ekim 2026)
 
-1. **Form kayıt servisi:** Google hesabınızla 10 dakikalık kurulum (`backend/google-apps-script/KURULUM.md`). Tamamlanana kadar formlar talebi WhatsApp üzerinden iletir ve bunu ziyaretçiye açıkça söyler.
-2. **Google Etiket Yöneticisi / GA4 / Google Ads kimlikleri:** verilmedi; sahte kimlik konmadı. GTM kimliği `src/config/site.mjs` → `gtmId` alanına yazılınca ölçüm başlar.
-3. **Search Console doğrulaması:** DNS TXT kaydı gerekiyor (Turkticaret paneli açık olduğunda yapılabilir).
-4. **Google İşletme Profili:** web sitesi bağlantısının eklenmesi ve video doğrulama.
-5. **HTTPS zorunlu kılma:** GitHub sertifikayı ürettikten sonra (genellikle 15 dk – birkaç saat) Settings → Pages → “Enforce HTTPS” işaretlenmeli.
-6. **Hukuki metinlerde doğrulanması gerekenler:** veri sorumlusunun ticari unvanı ve vergi/MERSİS bilgisi, VERBİS kayıt durumu, kişisel veri saklama süreleri, yurt dışına aktarım (Google, WhatsApp) için dayanak, başvurular için e-posta/KEP adresi. Metinler gerçek veri akışlarına göre yazıldı ancak **hukuki incelemeden geçmedi**.
-7. **Gösterilmeyen bilgiler (talimat gereği):** e-posta adresi, sosyal medya hesabı, çalışma saatleri, deneyim yılı, yetki belgesi numarası, müşteri yorumu. İsterseniz tek yerden eklenebilir.
-8. **Onaylı hizmet bölgeleri:** verilmediği için İstanbul’un 39 ilçesi yalnızca “talep konumu” olarak sunuldu; sitede hizmet bölgesi iddiası yok.
-9. **Yusuf Sezmiş fotoğrafı:** gerçek fotoğraf olmadığı için portre üretilmedi; monogram kullanıldı.
-10. **Reklam kampanyaları:** başlatılmadı (bütçe, faturalandırma, hesap erişimi yok); taslaklar hazır.
+| Hizmet | Durum |
+|---|---|
+| Alan adı + HTTPS | `nova-gayrimenkul.com` GitHub Pages'e bağlı, “Enforce HTTPS” açık. |
+| Form kayıt servisi | Apps Script projesi **“Nova Gayrimenkul Talep Servisi”** web uygulaması olarak yayında; site `formEndpoint` ile bağlı. Talepler Google Drive'daki **“Nova Gayrimenkul — Talepler”** E-Tablosuna yazılır (yönetim alanı: Durum = Yeni / Görüşüldü / Takip / Tamamlandı + Not). |
+| Canlı uçtan uca test | Görüşme formu (`NV-261031-6R66`) ve mülk değerlendirme formu (`NV-261031-ER3E`) canlı siteden gönderildi → E-Tabloya doğru sütunlarla yazıldı, bildirim e-postası geldi, `generate_lead` (+ görüşmede `appointment_request`) bir kez tetiklendi. İki test satırı “Tamamlandı” ve “Test kaydı — silinebilir” notuyla işaretli; dilediğinizde silebilirsiniz. |
+| Search Console | `https://nova-gayrimenkul.com/` mülkü doğrulandı (HTML dosyası + HTML etiketi, iki yöntem). `sitemap-index.xml` başarılı okundu (16 sayfa); `sitemap.xml` yeniden gönderildi; ana sayfa için yeniden tarama istendi. |
+| Google İşletme Profili | Web sitesi alanı `https://nova-gayrimenkul.com/`, telefon 0501 701 79 08, ad “Nova Gayrimenkul” — doğru. |
+
+## Sizin yapmanız gerekenler (hesap, kimlik veya hukuk gerektirdiği için)
+
+1. **Google İşletme Profili doğrulaması:** profil “Doğrulama başarısız — başka bir kayıt gönderin” durumunda ve **herkese görünür değil**. Doğrulama videosu yalnızca işletme sahibinin çekebileceği bir kayıttır (tabela/ofis, konum ve yönetim yetkisini gösteren). Google Haritalar uygulamasında profil → “Doğrulama yapın” ile yeni video gönderin.
+2. **Haftalık otomatik yedek:** E-Tablo → Uzantılar → Apps Script → fonksiyon listesinden `haftalikYedekKur` → **Çalıştır** (tek tık). Bu, hesabınızda kalıcı bir zamanlayıcı kurduğu için sizin onayınızla çalıştırılmalı. O zamana kadar E-Tablonun kendi sürüm geçmişi (Dosya → Sürüm geçmişi) geçerlidir.
+3. **Google Etiket Yöneticisi / GA4 / Google Ads:** hesap oluşturulmadı, sahte kimlik konmadı. GTM kapsayıcısı açıldığında kimliği `src/config/site.mjs` → `gtmId` alanına yazmak yeterli; tüm olaylar ve izin modu hazır (`docs/OLCUM-VE-ETIKETLER.md`).
+4. **Alan adı (DNS) düzeyinde Search Console mülkü:** isteğe bağlı; Turkticaret paneline giriş gerektirir. Mevcut URL mülkü tüm site için yeterlidir.
+5. **Hukuki metinlerde doğrulanması gerekenler:** veri sorumlusunun ticari unvanı ve vergi/MERSİS bilgisi, VERBİS kayıt durumu, kişisel veri saklama süreleri, yurt dışına aktarım (Google, WhatsApp) için dayanak, başvurular için e-posta/KEP adresi. Metinler gerçek veri akışlarına göre yazıldı ancak **hukuki incelemeden geçmedi**.
+6. **Gösterilmeyen bilgiler (talimat gereği):** e-posta adresi, sosyal medya hesabı, çalışma saatleri, deneyim yılı, yetki belgesi numarası, müşteri yorumu. Not: İşletme Profilinde çalışma saati **10:30–16:00** girili; doğruysa siteye de eklenebilir.
+7. **Onaylı hizmet bölgeleri:** verilmediği için İstanbul’un 39 ilçesi yalnızca “talep konumu” olarak sunuldu; sitede hizmet bölgesi iddiası yok.
+8. **Yusuf Sezmiş fotoğrafı:** gerçek fotoğraf olmadığı için portre üretilmedi; monogram kullanıldı.
+9. **Reklam kampanyaları:** başlatılmadı (bütçe ve faturalandırma kararı sizin); taslaklar `docs/REKLAM-TASLAKLARI.md` içinde hazır.

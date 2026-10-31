@@ -1,6 +1,9 @@
 # Form kayıt servisi ve yönetim alanı — kurulum (yaklaşık 10 dakika)
 
-Formlar şu anda talebi **WhatsApp üzerinden** iletir ve bunu ziyaretçiye açıkça söyler.
+> **Durum (31 Ekim 2026): kuruldu ve canlıda.** E-Tablo “Nova Gayrimenkul — Talepler”, Apps Script projesi “Nova Gayrimenkul Talep Servisi”, `kurulum` çalıştırıldı, web uygulaması yayında ve siteye bağlı. **Kalan tek adım:** `haftalikYedekKur` fonksiyonunu bir kez çalıştırmanız (aşağıda 2.4).
+> Aşağıdaki adımlar, servisi baştan yeniden kurmak gerekirse diye duruyor.
+
+`formEndpoint` boş bırakılırsa formlar talebi **WhatsApp üzerinden** iletir ve bunu ziyaretçiye açıkça söyler.
 Aşağıdaki adımlar tamamlandığında formlar talepleri **Google E-Tablolar'a kaydeder**; yönetim alanınız bu E-Tablo olur.
 
 ## 1. E-Tablo'yu oluşturun

@@ -56,7 +56,7 @@ export const SITE = {
    * Boşken formlar talebi WhatsApp üzerinden iletir ve bunu ziyaretçiye açıkça söyler.
    * Kurulum: backend/google-apps-script/KURULUM.md
    */
-  formEndpoint: '',
+  formEndpoint: 'https://script.google.com/macros/s/AKfycbzmRINq8N5DSU2dzqGpvQKlMsh0Rp7DlimgCC8CoyxxHm9VYSLs6bgn_XANkmliiYLw9g/exec',
 
   /** Google Search Console HTML etiketi doğrulama kodu (herkese açık bir değerdir, gizli değildir). */
   googleSiteVerification: 'YyjkGmQf95FPIJkjaKM_eQuYqNjgBs8eOAqEDNtwwng',

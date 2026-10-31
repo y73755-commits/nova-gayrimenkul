@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, copyFileSync, existsSync } from 'node:fs';
 import { SITE } from './src/config/site.mjs';
 
 /** Sitemap'e girmeyecek sayfalar: reklam açılış sayfaları (noindex) ve sistem sayfaları. */
@@ -12,6 +12,8 @@ const cname = {
   hooks: {
     'astro:build:done': ({ dir }) => {
       writeFileSync(new URL('CNAME', dir), new URL(SITE.url).host + '\n');
+      // Search Console'da daha önce gönderilmiş /sitemap.xml adresi de çalışsın
+      if (existsSync(new URL('sitemap-index.xml', dir))) copyFileSync(new URL('sitemap-index.xml', dir), new URL('sitemap.xml', dir));
     },
   },
 };

@@ -1,6 +1,6 @@
 import { SITE, absoluteUrl } from '../config/site.mjs';
 
-/** Yalnızca doğrulanmış bilgiler: marka, telefon, adres, kurucu. Puan, yorum, fiyat veya hizmet bölgesi işaretlenmez. */
+/** Yalnızca doğrulanmış bilgiler: marka, telefon, adres, çalışma saatleri, kurucu. Puan, yorum, fiyat veya hizmet bölgesi işaretlenmez. */
 export const orgSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'RealEstateAgent',
@@ -17,6 +17,12 @@ export const orgSchema = () => ({
     addressRegion: SITE.address.city,
     addressCountry: SITE.address.country,
   },
+  openingHoursSpecification: SITE.hours.spec.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: h.days,
+    opens: h.opens,
+    closes: h.closes,
+  })),
   founder: { '@type': 'Person', '@id': absoluteUrl('/yusuf-sezmis/#person'), name: SITE.founder, jobTitle: SITE.founderTitle },
 });
 

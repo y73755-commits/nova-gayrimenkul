@@ -8,7 +8,7 @@
 - XML site haritası: `https://nova-gayrimenkul.com/sitemap-index.xml` (reklam açılış sayfaları ve 404 hariç).
 - `robots.txt`: site haritası bildirimi; `/lp/` reklam sayfaları taramaya kapalı ve ayrıca `noindex`.
 - Sosyal paylaşım (Open Graph / X): başlık, açıklama ve 1200×630 görsel; rehber sayfalarında kendi görseli.
-- Yapılandırılmış veri (JSON-LD), yalnızca doğrulanmış bilgilerle: `RealEstateAgent` (ad, telefon, adres, kurucu), `Person` (Yusuf Sezmiş — Kurucu Broker), `WebSite`, `BreadcrumbList`, `FAQPage`, rehberlerde `Article`.
+- Yapılandırılmış veri (JSON-LD), yalnızca doğrulanmış bilgilerle: `RealEstateAgent` (ad, telefon, adres, çalışma saatleri, kurucu), `Person` (Yusuf Sezmiş — Kurucu Broker), `WebSite`, `BreadcrumbList`, `FAQPage`, rehberlerde `Article`.
   **Puan, yorum, fiyat, çalışma saati veya hizmet bölgesi işaretlenmedi.**
 - Tüm görsellerde açıklayıcı alternatif metin; görsel boyutları önceden ayrılı (sayfa sıçraması yok).
 - Doğru 404 sayfası (HTTP 404 durum kodu, `noindex`).
@@ -26,6 +26,7 @@
 ## Google İşletme Profili — durum
 
 - Ad **Nova Gayrimenkul**, telefon **0501 701 79 08**, web sitesi **https://nova-gayrimenkul.com/** — site ile tutarlı (kontrol edildi).
+- Çalışma saatleri: **Pazartesi–Cumartesi 10:30–17:30, Pazar kapalı** — sitedeki `openingHoursSpecification` ile aynı.
 - Profil **doğrulanmamış** (“Doğrulama başarısız — başka bir kayıt gönderin”), bu yüzden herkese görünmüyor. Doğrulama videosunu yalnızca işletme sahibi çekebilir: Google Haritalar uygulamasında profil → **Doğrulama yapın**.
 - Doğrulandıktan sonra profil gönderilerinde rehber yazılarına bağlantı verebilirsiniz.
 

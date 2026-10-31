@@ -486,6 +486,7 @@ textarea.control { min-height: 110px; resize: vertical; }
 .ft-brand img { height: 52px; width: auto; margin-bottom: 1.2rem; }
 .ft-brand p { color: var(--muted-on-dark); font-size: 0.95rem; max-width: 34ch; }
 .ft-contact address { font-style: normal; color: var(--muted-on-dark); margin-bottom: 0.6rem; line-height: 1.5; }
+.ft-hours { color: var(--muted-on-dark); margin: 0 0 0.8rem; line-height: 1.5; }
 button.linkish { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; }
 .ft-bottom { border-top: 1px solid var(--line-dark); padding-block: 1.4rem; display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; justify-content: space-between; font-size: 0.86rem; color: var(--muted-on-dark); }
 .ft-bottom p { margin: 0; }

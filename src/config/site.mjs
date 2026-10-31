@@ -36,6 +36,18 @@ export const SITE = {
     city: 'İstanbul',
     country: 'TR',
   },
+  /**
+   * Çalışma saatleri (Google İşletme Profili ile aynı tutulmalı).
+   * `days`: schema.org gün adları. Sitede `label` + `closedLabel` gösterilir.
+   */
+  hours: {
+    label: 'Pazartesi – Cumartesi 10:30–17:30',
+    closedLabel: 'Pazar kapalı',
+    spec: [
+      { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '10:30', closes: '17:30' },
+    ],
+  },
+
   directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ADDRESS_FULL)}`,
 
   /**

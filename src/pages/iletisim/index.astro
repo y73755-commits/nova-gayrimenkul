@@ -25,6 +25,7 @@ import { orgSchema, breadcrumbSchema } from '../../data/schema.mjs';
           <div><dt>Telefon</dt><dd><a href={SITE.phoneHref} data-loc="iletisim">{SITE.phoneDisplay}</a></dd></div>
           <div><dt>WhatsApp</dt><dd><a href={waUrl(waMessage())} data-wa data-loc="iletisim" target="_blank" rel="noopener">WhatsApp’tan yazın</a></dd></div>
           <div><dt>Adres</dt><dd>{SITE.address.full}</dd></div>
+          <div><dt>Çalışma saatleri</dt><dd>{SITE.hours.label}<br />{SITE.hours.closedLabel}</dd></div>
           <div><dt>Kurucu Broker</dt><dd>{SITE.founder}</dd></div>
         </dl>
         <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem">

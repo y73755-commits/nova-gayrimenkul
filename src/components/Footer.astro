@@ -14,6 +14,7 @@ const year = new Date().getFullYear();
       <div class="ft-contact">
         <h2>İletişim</h2>
         <address>{SITE.address.full}</address>
+        <p class="ft-hours">{SITE.hours.label}<br />{SITE.hours.closedLabel}</p>
         <ul>
           <li><a href={SITE.phoneHref} data-loc="footer">{SITE.phoneDisplay}</a></li>
           <li><a href={waUrl(waMessage())} data-wa data-loc="footer" target="_blank" rel="noopener">WhatsApp ile yazın</a></li>

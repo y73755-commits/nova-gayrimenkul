@@ -1,7 +1,8 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import { writeFileSync, copyFileSync, existsSync } from 'node:fs';
+import { writeFileSync, copyFileSync, existsSync, mkdirSync } from 'node:fs';
 import { SITE } from './src/config/site.mjs';
+import { YONLENDIRMELER, yonlendirmeHtml } from './src/data/eski-adresler.mjs';
 
 /** Sitemap'e girmeyecek sayfalar: reklam açılış sayfaları (noindex) ve sistem sayfaları. */
 const EXCLUDE = ['/lp/', '/404'];
@@ -14,6 +15,13 @@ const cname = {
       writeFileSync(new URL('CNAME', dir), new URL(SITE.url).host + '\n');
       // Search Console'da daha önce gönderilmiş /sitemap.xml adresi de çalışsın
       if (existsSync(new URL('sitemap-index.xml', dir))) copyFileSync(new URL('sitemap-index.xml', dir), new URL('sitemap.xml', dir));
+      // Eski sitenin .html adresleri → yeni sayfalar (src/data/eski-adresler.mjs)
+      for (const [eski, yeni] of Object.entries(YONLENDIRMELER)) {
+        const hedef = new URL(eski, dir);
+        if (existsSync(hedef)) continue; // gerçek bir sayfanın üzerine yazma
+        mkdirSync(new URL('./', hedef), { recursive: true });
+        writeFileSync(hedef, yonlendirmeHtml(yeni, SITE.url));
+      }
     },
   },
 };

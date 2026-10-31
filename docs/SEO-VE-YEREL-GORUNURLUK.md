@@ -23,6 +23,13 @@
 - Takip: birkaç gün sonra “Sayfalar” raporundan eski sitenin artık olmayan adreslerinin 404 olarak düşüp düşmediğine bakın; bu normaldir.
 - İsteğe bağlı: **Alan adı mülkü** (DNS TXT kaydı) Turkticaret paneline giriş gerektirir. Mevcut mülk tüm site için yeterlidir.
 
+## Eski sitenin adresleri (31 Ekim 2026)
+
+Google'da hâlâ eski sitenin 18 sayfası listeleniyordu (`satilik.html`, `kiralik.html`, `hizmetler.html`, `bolgeler/sariyer.html` vb.) ve bu adresler yeni sitede "sayfa bulunamadı" veriyordu. Artık:
+- Bilinen eski adreslerin her biri ilgili yeni sayfaya anında yönlenir (liste: `src/data/eski-adresler.mjs`; satılık → Hizmetler/Alım, kiralık → Hizmetler/Kiralama, bölge sayfaları → Bölgeye Göre Talep, blog → Bilgi Merkezi, kvkk → KVKK aydınlatma metni).
+- Listede olmayan başka bir eski `.html` adresi de 404 sayfasındaki yedek kuralla ilgili sayfaya veya ana sayfaya yönlenir.
+- Google eski adresleri birkaç hafta içinde yeni sayfalarla değiştirir; ek işlem gerekmez.
+
 ## Google İşletme Profili — durum
 
 - Ad **Nova Gayrimenkul**, telefon **0501 701 79 08**, web sitesi **https://nova-gayrimenkul.com/** — site ile tutarlı (kontrol edildi).

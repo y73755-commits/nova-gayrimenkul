@@ -1,5 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
+import { ESKI_SAYFALAR } from '../data/eski-adresler.mjs';
+// Listede olmayan eski ".html" adresleri için yedek yönlendirme kuralları
+const kurallar = { sayfalar: ESKI_SAYFALAR, bolge: '/bolgeye-gore-talep/', blog: '/bilgi-merkezi/' };
 ---
 <Base title="Sayfa bulunamadı" description="Aradığınız sayfa bulunamadı." path="/404/" noindex light>
   <section class="section" style="padding-top:calc(var(--header-h) + 4rem)">
@@ -12,4 +15,15 @@ import Base from '../layouts/Base.astro';
       </div>
     </div>
   </section>
+  <script is:inline define:vars={{ kurallar }}>
+    (function () {
+      var yol = location.pathname.replace(/^\/+/, '').toLowerCase();
+      if (!/\.html?$/.test(yol)) return;
+      var hedef = kurallar.sayfalar[yol.replace(/\.htm$/, '.html')]
+        || (/^bolgeler\//.test(yol) && kurallar.bolge)
+        || (/^(blog|makale|haber)/.test(yol) && kurallar.blog)
+        || '/';
+      location.replace(hedef);
+    })();
+  </script>
 </Base>

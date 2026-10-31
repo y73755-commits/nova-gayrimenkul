@@ -33,6 +33,7 @@ Görsel üretim (yapay zekâ ile fotoğraf üretimi) aracı bu ortamda yoktu. Te
 | Form kayıt servisi | Apps Script projesi **“Nova Gayrimenkul Talep Servisi”** web uygulaması olarak yayında; site `formEndpoint` ile bağlı. Talepler Google Drive'daki **“Nova Gayrimenkul — Talepler”** E-Tablosuna yazılır (yönetim alanı: Durum = Yeni / Görüşüldü / Takip / Tamamlandı + Not). |
 | Canlı uçtan uca test | Görüşme formu (`NV-261031-6R66`) ve mülk değerlendirme formu (`NV-261031-ER3E`) canlı siteden gönderildi → E-Tabloya doğru sütunlarla yazıldı, bildirim e-postası geldi, `generate_lead` (+ görüşmede `appointment_request`) bir kez tetiklendi. İki test satırı “Tamamlandı” ve “Test kaydı — silinebilir” notuyla işaretli; dilediğinizde silebilirsiniz. |
 | Search Console | `https://nova-gayrimenkul.com/` mülkü doğrulandı (HTML dosyası + HTML etiketi, iki yöntem). `sitemap-index.xml` başarılı okundu (16 sayfa); `sitemap.xml` yeniden gönderildi; ana sayfa için yeniden tarama istendi. |
+| Eski site adresleri | Google'da listelenen eski `.html` sayfaları (satilik, kiralik, bolgeler/… vb.) yeni sayfalara yönlendiriliyor; ayrıntı `docs/SEO-VE-YEREL-GORUNURLUK.md`. |
 | Google İşletme Profili | Web sitesi alanı `https://nova-gayrimenkul.com/`, telefon 0501 701 79 08, ad “Nova Gayrimenkul” — doğru. Çalışma saatleri Pzt–Cmt 10:30–17:30, Pazar kapalı olarak güncellendi. |
 
 ## Sizin yapmanız gerekenler (hesap, kimlik veya hukuk gerektirdiği için)

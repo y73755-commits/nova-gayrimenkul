@@ -1,5 +1,6 @@
 ---
 title: Lüks konut seçerken değerlendirilmesi gereken özellikler
+seoTitle: Lüks konut seçerken nelere bakılmalı?
 description: Konum, yapı kalitesi, plan, manzara ve işletme giderleri… Lüks bir konutu karşılaştırırken bakılması gereken ölçütleri sade bir kontrol listesiyle anlattık.
 image: rezidans-ic-mekan
 imageAlt: Gün ışığı alan, ahşap ve mermer detaylı zarif rezidans iç mekânı konsepti

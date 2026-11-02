@@ -2,6 +2,7 @@
 export interface Guide {
   slug: string;
   title: string;
+  seoTitle?: string; // arama sonucu başlığı (60 karakteri aşmasın)
   description: string;
   image: string;
   imageAlt: string;

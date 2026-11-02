@@ -1,5 +1,6 @@
 ---
 title: Bir mülkü satışa veya kiralamaya hazırlama süreci
+seoTitle: Mülkü satışa veya kiralamaya hazırlama
 description: Belge hazırlığından küçük onarımlara, fotoğraf çekiminden ilan yetkilendirmesine kadar mülkünüzü satışa veya kiralamaya hazırlarken izleyebileceğiniz adımlar.
 image: malzeme-detay
 imageAlt: Mermer tezgâh, oluklu meşe ve sıcak ışıkla iç mekân malzeme detayı

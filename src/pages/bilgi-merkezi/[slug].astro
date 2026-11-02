@@ -19,7 +19,7 @@ const og = key ? await getImage({ src: imgs[key].default, width: 1200, height: 6
 const ogPath = og ? og.src : undefined;
 ---
 <Base
-  title={g.title}
+  title={(g.seoTitle ?? g.title)}
   description={g.description}
   path={`/bilgi-merkezi/${g.slug}/`}
   ogImage={ogPath}

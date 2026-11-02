@@ -64,3 +64,18 @@ Yerel sunucuda ölçülmüştür; gerçek kullanıcı verisi (CrUX) değildir. C
 | Mülkümü değerlendir | 97 | 100 | 100 | 100 | 1,7 sn | 0,096 | 0 ms | 147 KiB |
 
 Görseller AVIF/WebP (JPG yedekli) ve 480–2160 px aralığında üretilir; ana görsel öncelikli, diğerleri ihtiyaç oldukça yüklenir. Fontlar siteye gömülüdür (Google Fonts çağrısı yok).
+
+## Mobil düzeltmeler (2 Kasım 2026)
+
+“Mobilde düzgün açılmıyor” bildirimi üzerine tüm sayfalar 360×640, 360×740, 375×667, 390×664, 390×844 ve 430×932 ekranlarda yeniden tarandı. Bulunan ve düzeltilen sorunlar:
+
+| Sorun | Düzeltme |
+|---|---|
+| Küçük telefonlarda ilk ekranın yaklaşık yarısını çerez bandı + alt Ara/WhatsApp çubuğu kaplıyor, ana başlığın açıklaması ve düğmeleri görünmüyordu | Sitede henüz analiz/reklam etiketi (GTM) olmadığı için izin istenecek çerez yok; bant artık kendiliğinden açılmıyor (GTM kimliği eklendiğinde otomatik açılır). Bant mobilde kompakt hâle getirildi. Ana görsel alt çubuğun üstünde bitiyor. |
+| Hakkımızda → “Bizi tanımlayan ilkeler” mobilde 3 sütun kalıp ekrandan taşıyor, sayfa yana kayıyordu | Mobilde tek sütun |
+| Yusuf Sezmiş sayfasında “Görüşme Planlayın” düğmesinin yazısı siyah zemin üzerinde siyahtı (görünmüyordu) | Metin bağlantı stili düğmelere uygulanmıyor |
+| Kaydırınca beliren bölümler (yaşam alanı görselleri, rehberler, kurucu alanı) hızlı kaydırmada veya bazı uygulama içi tarayıcılarda boş kalabiliyordu | Telefon ve tablette içerik hiç gizlenmiyor; animasyon yalnızca masaüstünde, güvenlik ağıyla |
+| Bir betik bölümünde hata olursa sonraki bölümler hiç çalışmıyordu | Her bölüm ayrı ayrı güvenli başlatılıyor |
+| Metin bağlantılarının dokunma alanı küçüktü | Dokunmatik ekranlarda görünümü değiştirmeden büyütüldü |
+
+Sonuç: hiçbir sayfada yatay taşma yok, görünmeyen bölüm yok, kırık görsel yok, betik hatası yok; menü, tercih seçimi, formlar ve çerez tercih penceresi mobilde çalışıyor; masaüstü görünüm değişmedi.

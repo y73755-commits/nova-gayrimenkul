@@ -517,7 +517,9 @@ function initConsent() {
   const dlg = document.getElementById('ccd');
   if (!banner || !dlg) return;
   const stored = LS.get(CKEY);
-  if (!stored) { banner.hidden = false; document.body.classList.add('cc-open'); }
+  // Analiz/reklam etiketi (GTM) kurulu değilse izin istenecek çerez yok → bant kendiliğinden açılmaz.
+  // "Çerez tercihleri" bağlantısı her zaman çalışır.
+  if (!stored && CFG.gtmId) { banner.hidden = false; document.body.classList.add('cc-open'); }
   storeClickIfAllowed();
   const openPrefs = () => {
     const c = LS.get(CKEY) || { analytics: false, ads: false };
@@ -584,23 +586,32 @@ function initKeyboardGuard() {
 
 /* ------------------------------------------------------------------ ölçülü kaydırma animasyonu */
 function initReveal() {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-in'));
-    return;
-  }
+  // Yalnızca masaüstünde (fare + geniş ekran) ve hareket azaltma kapalıysa. Telefon ve tabletlerde
+  // içerik hiç gizlenmez; böylece hızlı kaydırmada veya uygulama içi tarayıcılarda boş alan kalmaz.
+  const desktop = matchMedia('(hover: hover) and (pointer: fine) and (min-width: 861px)').matches;
+  if (!desktop || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const els = [...document.querySelectorAll('.reveal')];
   const io = new IntersectionObserver((entries) => entries.forEach((en) => {
     if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
   }), { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
-  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  els.forEach((el) => io.observe(el));
+  document.documentElement.classList.add('reveal-on');
+  // Güvenlik ağı: ekranda veya ekranın üstünde kalmış her öğe, gözlemci gecikse bile görünür olur.
+  const sweep = () => els.forEach((el) => { if (!el.classList.contains('is-in') && el.getBoundingClientRect().top < innerHeight) { el.classList.add('is-in'); io.unobserve(el); } });
+  let t = 0;
+  window.addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(sweep, 150); }, { passive: true });
+  setTimeout(sweep, 1200);
 }
 
 /* ------------------------------------------------------------------ başlat */
-initHeader();
-initConsent();
-initKeyboardGuard();
-document.querySelectorAll('form[data-prefs]').forEach(initPrefs);
-document.querySelectorAll('form[data-form]').forEach(initForm);
-initRegionChips();
-refreshWaLinks();
-document.addEventListener('nova:prefs', refreshWaLinks);
-initReveal();
+// Her bölüm ayrı çalışır: birinde hata olursa diğerleri (menü, formlar, görünürlük) etkilenmez.
+const safe = (fn) => { try { fn(); } catch (err) { if (window.console) console.error('[nova]', err); } };
+safe(initReveal);
+safe(initHeader);
+safe(initConsent);
+safe(initKeyboardGuard);
+document.querySelectorAll('form[data-prefs]').forEach((f) => safe(() => initPrefs(f)));
+document.querySelectorAll('form[data-form]').forEach((f) => safe(() => initForm(f)));
+safe(initRegionChips);
+safe(refreshWaLinks);
+document.addEventListener('nova:prefs', () => safe(refreshWaLinks));

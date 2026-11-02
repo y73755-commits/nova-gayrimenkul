@@ -368,7 +368,7 @@ function initForm(form) {
       website: String(fd.get('website') || ''),
       sayfa: location.pathname,
       sureMs: Date.now() - renderedAt,
-      istekNo: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2)),
+      istekNo: '',
       kaynak: SS.get(UTM_KEY) || null,
       tiklamaKimligi: SS.get(CLICK_KEY) || null,
     };
@@ -430,11 +430,21 @@ function initForm(form) {
     statusEl.hidden = true;
     const v = validate();
     if (!v.ok) {
+      track('form_submit_attempt', { form_name: type, valid: false, error_field: v.first?.name || '' });
       showStatus('error', 'Formu göndermek için işaretli alanları tamamlayın.');
       v.first?.focus?.();
       return;
     }
+    track('form_submit_attempt', { form_name: type, valid: true });
     const data = collect(v.tel);
+    // Aynı içerik yeniden gönderilirse (ör. zaman aşımından sonra) aynı istek numarası kullanılır;
+    // sunucu ilk kayıt olduysa aynı talep numarasını döndürür, ikinci satır oluşmaz.
+    const icerik = JSON.stringify({ ...data, sureMs: 0, istekNo: '', kaynak: null, tiklamaKimligi: null });
+    if (form.dataset.sonIcerik !== icerik || !form.dataset.istekNo) {
+      form.dataset.sonIcerik = icerik;
+      form.dataset.istekNo = crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2);
+    }
+    data.istekNo = form.dataset.istekNo;
 
     if (!live) {
       // Yalnızca WhatsApp akışı: talep sunucuya kaydedilmez, bu nedenle başarı mesajı gösterilmez.
@@ -442,7 +452,8 @@ function initForm(form) {
       // 'noopener' özelliği window.open'ın null dönmesine yol açar; bu yüzden opener'ı elle kesiyoruz
       const w = window.open(url, '_blank');
       if (w) { try { w.opener = null; } catch { /* yok say */ } } else { location.href = url; }
-      track('whatsapp_click', { link_location: `form_${type}` });
+      // WhatsApp'ta hazırlanan mesaj "talep" sayılmaz; gönderim ziyaretçinin elindedir
+      track('whatsapp_message_prepared', { form_name: type, method: 'whatsapp' });
       showStatus('info', `WhatsApp açıldı. Talebiniz, mesajı WhatsApp’ta gönderdiğinizde bize ulaşır. WhatsApp açılmadıysa <a href="${url}" target="_blank" rel="noopener">buraya dokunun</a> ya da <a href="${CFG.phoneHref}">bizi arayın</a>.`);
       return;
     }
@@ -458,18 +469,25 @@ function initForm(form) {
     submit.disabled = true;
     const label = submit.textContent;
     submit.textContent = 'Gönderiliyor…';
+    // Apps Script yanıt vermezse düğme sonsuza dek "Gönderiliyor…" kalmasın
+    const ZAMAN_ASIMI_MS = 20000;
+    const ac = 'AbortController' in window ? new AbortController() : null;
+    const zamanlayici = ac ? setTimeout(() => ac.abort(), ZAMAN_ASIMI_MS) : 0;
     try {
       const res = await fetch(CFG.formEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(data),
         redirect: 'follow',
+        signal: ac ? ac.signal : undefined,
       });
       let json = null;
       try { json = await res.json(); } catch { json = null; }
       if (json && json.ok === true && json.id) {
         done[fp] = Date.now();
         SS.set('nova.sent', done);
+        delete form.dataset.istekNo;
+        delete form.dataset.sonIcerik;
         form.querySelectorAll('input:not([type=hidden]):not([type=radio]):not([type=checkbox]), textarea').forEach((i) => { i.value = ''; });
         showStatus('ok', `Talebiniz kaydedildi (talep no: <strong>${escapeHtml(json.id)}</strong>). ${data.kanal === 'whatsapp' ? 'WhatsApp üzerinden' : 'Telefonla'} size dönüş yapacağız.`);
         track('generate_lead', { form_name: type, lead_id: json.id });
@@ -477,12 +495,20 @@ function initForm(form) {
         statusEl.focus?.();
       } else {
         const code = json?.error && ERRORS[json.error] ? json.error : 'server';
+        track('form_error', { form_name: type, error_type: code, http_status: res.status });
         showStatus(code === 'duplicate' ? 'ok' : 'error', `${ERRORS[code]} <a href="${CFG.phoneHref}">Hemen arayın</a>.`);
         if (code === 'invalid' && json?.fields) json.fields.forEach((f) => setError(f, 'Bu alanı kontrol edin.'));
       }
-    } catch {
-      showStatus('error', `Bağlantı kurulamadı ve talebiniz kaydedilmedi. İnternet bağlantınızı kontrol edip tekrar deneyin ya da <a href="${CFG.phoneHref}">bizi arayın</a>.`);
+    } catch (err) {
+      const zamanAsimi = err && err.name === 'AbortError';
+      track('form_error', { form_name: type, error_type: zamanAsimi ? 'timeout' : (navigator.onLine === false ? 'offline' : 'network') });
+      if (zamanAsimi) {
+        showStatus('error', `Sunucudan zamanında yanıt alınamadı; talebinizin kaydedilip kaydedilmediğini doğrulayamadık. Tekrar gönderebilirsiniz — kaydedildiyse ikinci kez kaydedilmez ve aynı talep numarasını görürsünüz. Dilerseniz <a href="${CFG.phoneHref}">bizi arayın</a>.`);
+      } else {
+        showStatus('error', `Bağlantı kurulamadı ve talebiniz kaydedilmedi. İnternet bağlantınızı kontrol edip tekrar deneyin ya da <a href="${CFG.phoneHref}">bizi arayın</a>.`);
+      }
     } finally {
+      clearTimeout(zamanlayici);
       form.dataset.busy = '0';
       submit.disabled = false;
       submit.removeAttribute('aria-disabled');
@@ -497,9 +523,24 @@ function escapeHtml(s) {
 
 /* ------------------------------------------------------------------ çerez tercihleri */
 const CKEY = 'nova.consent.v1';
+/** İzin geri alındığında daha önce yazılmış Google çerezlerini siler (alan adı ve üst alan adı için). */
+function deleteCookies(prefixes) {
+  const host = location.hostname;
+  const parts = host.split('.');
+  const domains = ['', host, '.' + host];
+  if (parts.length > 2) domains.push('.' + parts.slice(-2).join('.'));
+  document.cookie.split(';').forEach((c) => {
+    const name = c.split('=')[0].trim();
+    if (!prefixes.some((p) => name.indexOf(p) === 0)) return;
+    domains.forEach((d) => { document.cookie = `${name}=; Max-Age=0; path=/${d ? '; domain=' + d : ''}`; });
+  });
+}
 function applyConsent(c, source) {
   const v = { analytics: !!c.analytics, ads: !!c.ads, v: 1, t: Date.now() };
+  const prev = LS.get(CKEY);
   LS.set(CKEY, v);
+  if (prev && prev.analytics && !v.analytics) deleteCookies(['_ga', '_gid']);
+  if (prev && prev.ads && !v.ads) deleteCookies(['_gcl', '_gac', 'FPGCL']);
   window.gtag?.('consent', 'update', {
     analytics_storage: v.analytics ? 'granted' : 'denied',
     ad_storage: v.ads ? 'granted' : 'denied',

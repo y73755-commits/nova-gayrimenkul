@@ -4,6 +4,9 @@
    Başlık: Bodoni Moda (OFL) · Metin: Jost (OFL) — ikisi de siteye gömülü
    ========================================================================== */
 
+/* Yedek yazı tiplerinin ölçüleri web yazı tiplerine eşitlenir: yazı tipi yüklenince metin yer değiştirmez (CLS). */
+@font-face { font-family: 'Jost Yedek'; src: local('Arial'),local('ArialMT'),local('Liberation Sans'); size-adjust: 90.6%; ascent-override: 118.1%; descent-override: 41.4%; line-gap-override: 0.0%; }
+@font-face { font-family: 'Bodoni Yedek'; src: local('Times New Roman'),local('TimesNewRomanPSMT'),local('Liberation Serif'); size-adjust: 113.2%; ascent-override: 99.4%; descent-override: 35.3%; line-gap-override: 0.0%; }
 :root {
   --ink: #101114;
   --ink-2: #1a1b1f;
@@ -24,8 +27,8 @@
   --danger: #9b2c22;
   --ok: #2f5d3a;
 
-  --serif: 'Bodoni Moda Variable', 'Bodoni Moda', 'Didot', 'Times New Roman', serif;
-  --sans: 'Jost Variable', 'Jost', 'Segoe UI', system-ui, sans-serif;
+  --serif: 'Bodoni Moda Variable', 'Bodoni Moda', 'Bodoni Yedek', 'Didot', 'Times New Roman', serif;
+  --sans: 'Jost Variable', 'Jost', 'Jost Yedek', 'Segoe UI', system-ui, sans-serif;
 
   --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
   --step-0: clamp(1.02rem, 0.98rem + 0.2vw, 1.12rem);

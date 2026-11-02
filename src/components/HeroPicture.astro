@@ -17,7 +17,7 @@ const build = async (img: ImageMetadata, widths: number[], format: 'avif' | 'web
   return out.map((o, i) => `${o.src} ${ws[i]}w`).join(', ');
 };
 const dW = [960, 1440, 1920, 2160];
-const mW = [540, 720, 1080];
+const mW = [540, 720, 828, 1080]; // 828: 412 px × 1,75 DPR gibi ekranlarda 1080'e sıçramayı önler
 const sets = {
   mAvif: await build(m, mW, 'avif'), mWebp: await build(m, mW, 'webp'),
   dAvif: await build(d, dW, 'avif'), dWebp: await build(d, dW, 'webp'),

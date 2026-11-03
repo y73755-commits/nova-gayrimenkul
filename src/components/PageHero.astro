@@ -6,7 +6,7 @@ const { title, lead, image, alt = '', crumbs = [] } = Astro.props;
 ---
 <section class={`phero ${image ? '' : 'phero--plain'}`}>
   {image && (
-    <div class="phero__media"><Img name={image} alt={alt} priority sizes="100vw" widths={[768, 1080, 1440, 1600]} /></div>
+    <div class="phero__media"><Img name={image} alt={alt} priority sizes="(max-width: 760px) 140vw, 100vw" widths={[828, 1080, 1440, 1600]} /></div>
   )}
   <div class="wrap phero__inner">
     {crumbs.length > 0 && (

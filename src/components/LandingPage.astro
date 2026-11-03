@@ -12,7 +12,7 @@ const p = Astro.props;
 ---
 <Base title={p.title} description={p.description} path={p.path} noindex minimal waTopic={p.waTopic}>
   <section class="phero" style="min-height:clamp(460px,62vh,680px)">
-    <div class="phero__media"><Img name={p.image} alt={p.alt} priority sizes="100vw" widths={[768, 1080, 1440, 1600]} /></div>
+    <div class="phero__media"><Img name={p.image} alt={p.alt} priority sizes="(max-width: 760px) 140vw, 100vw" widths={[828, 1080, 1440, 1600]} /></div>
     <div class="wrap phero__inner">
       <h1>{p.h1}</h1>
       <p>{p.lead}</p>

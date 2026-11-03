@@ -28,7 +28,7 @@ const w = widths.filter((x) => x <= src.width);
   sizes={sizes}
   formats={['avif', 'webp']}
   fallbackFormat="jpg"
-  quality={72}
+  quality={priority ? 82 : 78}
   loading={priority ? 'eager' : loading}
   decoding={priority ? 'sync' : 'async'}
   fetchpriority={priority ? 'high' : 'auto'}

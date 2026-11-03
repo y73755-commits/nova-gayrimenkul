@@ -6,7 +6,7 @@
  * Derleme sırasında her eski adres için küçük bir yönlendirme sayfası üretilir
  * (anında yönlendirme + canonical + noindex), böylece Google'dan gelen ziyaretçi
  * "sayfa bulunamadı" yerine ilgili yeni sayfaya ulaşır ve Google adresi zamanla günceller.
- * Listede olmayan eski ".html" adresleri 404 sayfasındaki yedek kuralla yönlendirilir.
+ * Listede olmayan adresler yönlendirilmez: gerçek 404 kodu ve açıklayıcı 404 sayfası gösterilir.
  */
 import { ISTANBUL_ILCELERI } from './talep.mjs';
 

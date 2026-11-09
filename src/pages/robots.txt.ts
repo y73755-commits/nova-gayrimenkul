@@ -5,7 +5,6 @@ export const GET = () =>
     [
       'User-agent: *',
       'Allow: /',
-      'Disallow: /lp/',
       '',
       `Sitemap: ${new URL('/sitemap-index.xml', SITE.url).toString()}`,
       '',

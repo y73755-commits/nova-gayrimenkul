@@ -7,8 +7,8 @@ import { fileURLToPath } from 'node:url';
 import { SITE } from './src/config/site.mjs';
 import { YONLENDIRMELER, yonlendirmeHtml } from './src/data/eski-adresler.mjs';
 
-/** Sitemap'e girmeyecek sayfalar: reklam açılış sayfaları (noindex) ve sistem sayfaları. */
-const EXCLUDE = ['/lp/', '/404'];
+/** Sitemap'e girmeyecek sayfalar: yalnızca sistem sayfaları (404). Eski adres yönlendirmeleri derleme sonunda üretilir, site haritasına girmez. */
+const EXCLUDE = ['/404'];
 
 
 /**

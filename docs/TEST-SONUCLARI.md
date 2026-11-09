@@ -51,7 +51,7 @@ Testler `?nova_test=1` ile yapıldı (ölçümden hariç). Test satırları “T
 
 ## SEO denetimi (üretim derlemesi)
 
-Her sayfada tek `h1`, benzersiz başlık ve açıklama, canonical; yalnızca reklam açılış sayfaları ve 404 `noindex`; tüm görsellerde `alt` ve boyut; site haritasında 16 sayfa (açılış sayfaları hariç).
+Her sayfada tek `h1`, benzersiz başlık ve açıklama, canonical; yalnızca 404 ve eski adres yönlendirmeleri `noindex` (reklam açılış sayfaları 9 Kasım 2026’dan itibaren dizine açık); tüm görsellerde `alt` ve boyut; site haritasında 16 sayfa (açılış sayfaları hariç).
 
 ## Performans (Lighthouse 12, mobil emülasyon — **laboratuvar ölçümü**)
 

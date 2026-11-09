@@ -6,7 +6,7 @@
 - Anlaşılır Türkçe adresler (`/mulkumu-degerlendir/`, `/bilgi-merkezi/...`), sonda `/` ile tutarlı.
 - Tüm sayfalarda canonical bağlantı (`https://nova-gayrimenkul.com/...`). Filtre seçimleri adres çubuğuna yazılmaz; `?konu=` gibi parametreli adresler canonical ile temiz sürüme bağlanır.
 - XML site haritası: `https://nova-gayrimenkul.com/sitemap-index.xml` (reklam açılış sayfaları ve 404 hariç).
-- `robots.txt`: site haritası bildirimi; `/lp/` reklam sayfaları taramaya kapalı ve ayrıca `noindex`.
+- `robots.txt`: site haritası bildirimi; tüm sayfalar taramaya açık. `/lp/` reklam açılış sayfaları da dizine açık ve site haritasında (9 Kasım 2026).
 - Sosyal paylaşım (Open Graph / X): başlık, açıklama ve 1200×630 görsel; rehber sayfalarında kendi görseli.
 - Yapılandırılmış veri (JSON-LD), yalnızca doğrulanmış bilgilerle: `RealEstateAgent` (ad, telefon, adres, çalışma saatleri, kurucu), `Person` (Yusuf Sezmiş — Kurucu Broker), `WebSite`, `BreadcrumbList`, `FAQPage`, rehberlerde `Article`.
   **Puan, yorum, fiyat, çalışma saati veya hizmet bölgesi işaretlenmedi.**

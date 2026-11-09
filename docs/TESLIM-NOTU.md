@@ -9,7 +9,7 @@
 | Kalem | Nerede |
 |---|---|
 | Çalışan site (19 sayfa + 404) | Ana sayfa, Hizmetler, Yaşam Alanları, Bölgeye Göre Talep, Hakkımızda, Yusuf Sezmiş, Mülkümü Değerlendir, Bilgi Merkezi (+4 rehber), İletişim, KVKK aydınlatma, Gizlilik, Çerez politikası |
-| 3 reklam açılış sayfası (`noindex`) | `/lp/villa-luks-konut/`, `/lp/plaza-ofis/`, `/lp/mulk-satis-kiralama/` |
+| 3 reklam açılış sayfası (dizine açık, site haritasında) | `/lp/villa-luks-konut/`, `/lp/plaza-ofis/`, `/lp/mulk-satis-kiralama/` |
 | 8 özgün mimari konsept görsel (+ ana görselin masaüstü/mobil kırpımı, villa havuz açısı) | `src/assets/images/` (ana dosyalar), derlemede AVIF/WebP/JPG; üretim betikleri `tools/render/` |
 | Yazı logosu, N monogramı, favicon, paylaşım görseli | `src/assets/brand/`, `public/favicon.*`, `public/og/` |
 | Tercih seçimi + bölge seçimi (gerçekten çalışan) | ana sayfa, bölge sayfası |

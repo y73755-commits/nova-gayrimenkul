@@ -22,11 +22,13 @@ export const ESKI_SAYFALAR = {
   'iletisim.html': '/iletisim/',
   'kvkk.html': '/kvkk-aydinlatma-metni/',
   'hakkimizda.html': '/hakkimizda/',
+  // Search Console'da 404 görünen eski adres (2 Kasım 2026)
+  'kat-karsiligi-arsa-proje-gelistirme.html': '/hizmetler/',
 };
 
 /** Eski bölge sayfaları: Google'da görülen semtler + İstanbul'un 39 ilçesi */
 const ESKI_BOLGELER = [
-  'besiktas', 'gokturk', 'nisantasi', 'pendik', 'sultanbeyli', 'sariyer', 'kadikoy', 'alibeykoy',
+  'besiktas', 'gokturk', 'nisantasi', 'pendik', 'sultanbeyli', 'sariyer', 'kadikoy', 'alibeykoy', 'kemerburgaz',
   ...ISTANBUL_ILCELERI.map((i) => i.id),
 ];
 

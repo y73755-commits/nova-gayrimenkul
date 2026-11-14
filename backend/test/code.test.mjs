@@ -17,7 +17,7 @@ const ctx = {
     newConditionalFormatRule: () => ({ whenTextEqualTo() { return this; }, setBackground() { return this; }, setRanges() { return this; }, build() {} }),
   },
   CacheService: { getScriptCache: () => ({ get: (k) => cache.get(k) ?? null, put: (k, v) => cache.set(k, v) }) },
-  LockService: { getScriptLock: () => ({ waitLock() {}, releaseLock() {} }) },
+  LockService: { getScriptLock: () => ({ waitLock() {}, tryLock() { if (ctx.__kilitli) return false; ctx.__kilitli = true; return true; }, releaseLock() { ctx.__kilitli = false; } }) },
   MailApp: { sendEmail: (m) => mails.push(m) },
   Session: { getEffectiveUser: () => ({ getEmail: () => 'sahip@example.com' }), getScriptTimeZone: () => 'Europe/Istanbul' },
   Utilities: { formatDate: () => '261030' },
@@ -68,5 +68,14 @@ t('aynı telefondan 10 dakikada en fazla 3 talep', () => {
 });
 t('bozuk JSON güvenli biçimde reddedilir', () => {
   const r = JSON.parse(ctx.doPost({ postData: { contents: '{bozuk' } }).body); assert.equal(r.error, 'invalid');
+});
+t('kilit alınamazsa satır açılmaz; erken dönüşlerde kilit bırakılır', () => {
+  const once = rows.length;
+  ctx.__kilitli = true;
+  const r = post({ ...base, istekNo: 'kilit-1', telefon: '0533 000 00 01' });
+  assert.equal(r.ok, false); assert.equal(r.error, 'server'); assert.equal(rows.length, once);
+  ctx.__kilitli = false;
+  post(base); // tekrar (erken dönüş) — kilit finally ile bırakılmalı
+  assert.equal(ctx.__kilitli, false);
 });
 console.log(`\n${pass} test geçti. Kayıt satırı: ${rows.length}, bildirim: ${mails.length}, hata kaydı: ${logRows.length}`);

@@ -652,7 +652,15 @@ safe(initHeader);
 safe(initConsent);
 safe(initKeyboardGuard);
 document.querySelectorAll('form[data-prefs]').forEach((f) => safe(() => initPrefs(f)));
-document.querySelectorAll('form[data-form]').forEach((f) => safe(() => initForm(f)));
+document.querySelectorAll('form[data-form]').forEach((f) => safe(() => {
+  initForm(f);
+  // Betik hazır: gönderim açılır, betiksiz durumda gösterilen telefon notu gizlenir.
+  // (Betik yüklenmezse düğme kapalı kalır; ad ve telefon sayfa adresine yazılmaz.)
+  const btn = f.querySelector('[data-submit]');
+  if (btn) { btn.disabled = false; btn.removeAttribute('aria-disabled'); }
+  const not = f.querySelector('[data-form-betiksiz]');
+  if (not) not.hidden = true;
+}));
 safe(initRegionChips);
 safe(refreshWaLinks);
 document.addEventListener('nova:prefs', () => safe(refreshWaLinks));

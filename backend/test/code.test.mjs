@@ -5,6 +5,7 @@ import vm from 'node:vm';
 import assert from 'node:assert/strict';
 
 const rows = []; const logRows = []; const mails = []; const cache = new Map();
+let kilitli = false; const kilitDisiOkuma = [];
 const sheet = (store) => ({
   appendRow: (r) => store.push(r), getLastRow: () => store.length, setFrozenRows() {}, getRange: () => ({ setFontWeight() { return this; }, setBackground() { return this; }, setFontColor() { return this; }, setDataValidation() {}, setNumberFormat() {} }),
   setConditionalFormatRules() {}, setColumnWidths() {}, setColumnWidth() {},
@@ -16,8 +17,8 @@ const ctx = {
     flush() {}, newDataValidation: () => ({ requireValueInList() { return this; }, setAllowInvalid() { return this; }, build() {} }),
     newConditionalFormatRule: () => ({ whenTextEqualTo() { return this; }, setBackground() { return this; }, setRanges() { return this; }, build() {} }),
   },
-  CacheService: { getScriptCache: () => ({ get: (k) => cache.get(k) ?? null, put: (k, v) => cache.set(k, v) }) },
-  LockService: { getScriptLock: () => ({ waitLock() {}, releaseLock() {} }) },
+  CacheService: { getScriptCache: () => ({ get: (k) => { if (!kilitli && /^(istek|tekrar):/.test(k)) kilitDisiOkuma.push(k); return cache.get(k) ?? null; }, put: (k, v) => cache.set(k, v) }) },
+  LockService: { getScriptLock: () => ({ waitLock() { kilitli = true; }, releaseLock() { kilitli = false; } }) },
   MailApp: { sendEmail: (m) => mails.push(m) },
   Session: { getEffectiveUser: () => ({ getEmail: () => 'sahip@example.com' }), getScriptTimeZone: () => 'Europe/Istanbul' },
   Utilities: { formatDate: () => '261030' },
@@ -68,5 +69,8 @@ t('aynı telefondan 10 dakikada en fazla 3 talep', () => {
 });
 t('bozuk JSON güvenli biçimde reddedilir', () => {
   const r = JSON.parse(ctx.doPost({ postData: { contents: '{bozuk' } }).body); assert.equal(r.error, 'invalid');
+});
+t('tekrar kontrolleri kayıt kilidi altında yapılır, kilit her yanıttan sonra bırakılır', () => {
+  assert.deepEqual(kilitDisiOkuma, []); assert.equal(kilitli, false);
 });
 console.log(`\n${pass} test geçti. Kayıt satırı: ${rows.length}, bildirim: ${mails.length}, hata kaydı: ${logRows.length}`);

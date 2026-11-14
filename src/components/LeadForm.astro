@@ -14,7 +14,14 @@ const submitLabel = live
   : 'WhatsApp ile gönder';
 const f = (n: string) => `${id}-${n}`;
 ---
-<form class="lead-form" id={id} data-form={type} data-live={live ? '1' : '0'} novalidate>
+<!-- method="dialog": JavaScript yüklenmezse tarayıcı formu varsayılan GET ile gönderip ad ve telefonu
+     sayfa adresine yazmaz; gönderim yalnızca app.js üzerinden yapılır. -->
+<form class="lead-form" id={id} data-form={type} data-live={live ? '1' : '0'} method="dialog" novalidate>
+  <noscript>
+    <p class="form-status form-status--info">
+      Bu formu göndermek için tarayıcınızda JavaScript açık olmalıdır. Bize hemen ulaşmak için <a href={SITE.phoneHref}>{SITE.phoneDisplay}</a> numarasını arayabilirsiniz.
+    </p>
+  </noscript>
   {!live && (
     <p class="form-status form-status--info" data-mode-note>
       Bu form talebinizi WhatsApp üzerinden iletir: “WhatsApp ile gönder”e bastığınızda bilgileriniz hazır bir mesaj olarak açılır, göndermeyi WhatsApp’ta siz tamamlarsınız. İsterseniz <a href={SITE.phoneHref} data-loc={`form_${type}`}>{SITE.phoneDisplay}</a> numarasını da arayabilirsiniz.

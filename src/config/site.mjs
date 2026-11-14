@@ -54,7 +54,7 @@ export const SITE = {
    * Google Tag Manager kapsayıcı kimliği (örn. "GTM-ABC1234").
    * Boş bırakıldığında hiçbir analiz/reklam etiketi yüklenmez.
    */
-  gtmId: 'GTM-KDVLNB7X',
+  gtmId: '',
 
   /**
    * Consent Mode yaklaşımı:

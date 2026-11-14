@@ -291,8 +291,12 @@ function initForm(form) {
 
   const q = new URLSearchParams(location.search);
   function applyPrefs() {
-    const p = getPrefs();
-    const lines = prefLines(p);
+    const tumu = getPrefs();
+    // Mülk değerlendirme formu satıcı/ev sahibi içindir: alıcı veya kiracı tercihleri ("Satın almak", "Kiralamak")
+    // bu forma taşınmaz; aksi hâlde aynı ekranda hem "Satın almak" hem "Satmak istiyorum" görünür.
+    const saticiTercihi = tumu?.islem === 'sat' || tumu?.islem === 'kiraya-ver';
+    const p = type === 'degerlendirme' && !saticiTercihi ? null : tumu;
+    const lines = p ? prefLines(p) : [];
     if (chip) {
       chip.hidden = !lines.length;
       if (lines.length) chipText.innerHTML = lines.map(([k, v]) => `${k}: <strong>${escapeHtml(v)}</strong>`).join('; ');

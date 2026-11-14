@@ -56,25 +56,27 @@ function doPost(e) {
 
     var onbellek = CacheService.getScriptCache();
 
-    // 3) aynı istek numarası tekrar geldiyse (ağ tekrarı) önceki talep numarasını döndür
-    var oncekiNo = d.istekNo ? onbellek.get('istek:' + d.istekNo) : null;
-    if (oncekiNo) return yanit_({ ok: true, id: oncekiNo, tekrar: true });
-
-    // 4) aynı telefon + form için kısa sürede ikinci talep
-    var tekrarAnahtar = 'tekrar:' + t.form + ':' + t.telefon;
-    if (onbellek.get(tekrarAnahtar)) return yanit_({ ok: false, error: 'duplicate' });
-
-    // 5) gönderim sınırları
-    if (!sinirKontrol_(onbellek, 'kisi:' + t.telefon, AYAR.KISI_BASI_SINIR) || !sinirKontrol_(onbellek, 'genel', AYAR.GENEL_SINIR)) {
-      hataKaydet_('rate_limited', { form: t.form });
-      return yanit_({ ok: false, error: 'rate_limited' });
-    }
-
-    // 6) kayıt (eşzamanlı yazımlara karşı kilit)
+    // Tekrar kontrolleri ile kayıt aynı kilit altında: eşzamanlı iki istek
+    // (çift tıklama, ağ tekrarı) önbellekte birbirini göremeden iki satır açamaz.
     var kilit = LockService.getScriptLock();
     kilit.waitLock(15000);
     var no;
     try {
+      // 3) aynı istek numarası tekrar geldiyse (ağ tekrarı) önceki talep numarasını döndür
+      var oncekiNo = d.istekNo ? onbellek.get('istek:' + d.istekNo) : null;
+      if (oncekiNo) return yanit_({ ok: true, id: oncekiNo, tekrar: true });
+
+      // 4) aynı telefon + form için kısa sürede ikinci talep
+      var tekrarAnahtar = 'tekrar:' + t.form + ':' + t.telefon;
+      if (onbellek.get(tekrarAnahtar)) return yanit_({ ok: false, error: 'duplicate' });
+
+      // 5) gönderim sınırları
+      if (!sinirKontrol_(onbellek, 'kisi:' + t.telefon, AYAR.KISI_BASI_SINIR) || !sinirKontrol_(onbellek, 'genel', AYAR.GENEL_SINIR)) {
+        hataKaydet_('rate_limited', { form: t.form });
+        return yanit_({ ok: false, error: 'rate_limited' });
+      }
+
+      // 6) kayıt
       var sayfa = sayfaGetir_();
       no = talepNo_();
       sayfa.appendRow([
@@ -82,12 +84,13 @@ function doPost(e) {
         t.kanal, t.mesaj, t.pazarlamaIzni ? 'Evet' : 'Hayır', t.sayfa, t.kampanya, t.tiklama, 'Yeni', '',
       ]);
       SpreadsheetApp.flush();
+
+      // kilit bırakılmadan önce işaretle ki bekleyen istek bu kaydı görsün
+      onbellek.put(tekrarAnahtar, '1', AYAR.TEKRAR_PENCERESI_SN);
+      if (d.istekNo) onbellek.put('istek:' + d.istekNo, no, 21600);
     } finally {
       kilit.releaseLock();
     }
-
-    onbellek.put(tekrarAnahtar, '1', AYAR.TEKRAR_PENCERESI_SN);
-    if (d.istekNo) onbellek.put('istek:' + d.istekNo, no, 21600);
 
     bildir_(no, t);
     return yanit_({ ok: true, id: no });

@@ -282,6 +282,7 @@ function initForm(form) {
   const live = form.dataset.live === '1' && !!CFG.formEndpoint;
   const statusEl = form.querySelector('[data-status]');
   const submit = form.querySelector('[data-submit]');
+  if (submit) submit.disabled = false; // JS yüklenmeden form gönderilemez (ad/telefon adres çubuğuna yazılmaz)
   const chip = form.querySelector('[data-prefchip]');
   const chipText = form.querySelector('[data-prefchip-text]');
   const loc = form.querySelector('[data-locgroup]') ? bindLocation(form.querySelector('[data-locgroup]')) : null;
